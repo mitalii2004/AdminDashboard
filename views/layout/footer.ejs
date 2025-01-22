@@ -1,0 +1,27 @@
+</div>
+</div>
+</body>
+</html>
+<script>
+    function updateCommonBar(text) {
+      document.getElementById("common-bar").innerText = text;
+  
+      const navLinks = document.querySelectorAll(".nav-link");
+      navLinks.forEach((link) => link.classList.remove("active"));
+  
+      const activeLink = [...navLinks].find((link) => link.dataset.page === text);
+      if (activeLink) activeLink.classList.add("active");
+  
+      localStorage.setItem("activePage", text);
+    }
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      const activePage = localStorage.getItem("activePage");
+      if (activePage) {
+        updateCommonBar(activePage);
+      } else {
+        updateCommonBar('Dashboard');
+      }
+    });
+</script>
+  
