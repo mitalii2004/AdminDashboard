@@ -1,4 +1,48 @@
 <%- include("../layout/header.ejs");%>
 
+<style>
+  .musicContainer {
+    padding: 1rem;
+  }
+  .add-music {
+    background-color: cadetblue;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+</style>
+
+<div class="musicContainer">
+  <a href="#" class="add-music">+ Add Music</a>
+</div>
+
+<table>
+  <tr>
+    <th>S No.</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Music</th>
+    <th>Action</th>
+  </tr>
+  <tr>
+    <td>1.</td>
+    <td>Song</td>
+    <td>Music Description</td>
+    <td>
+      <audio controls="">
+        <source
+          src="/music/4792aeb8-d598-4a55-be1a-bf690b6c18bd.mp3"
+          type="audio/mpeg"
+        />
+        Your browser does not support the audio element.
+      </audio>
+    </td>
+    <td><button class="delete-btn">Delete</button></td>
+  </tr>
+</table>
 
 <%- include("../layout/footer.ejs");%>

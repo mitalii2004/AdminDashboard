@@ -1,5 +1,66 @@
 <%- include("../layout/header.ejs");%>
-
-
+   
+    <div class="search-container">
+      <label for="search">Search:</label>
+      <input
+        id="search"
+        type="search"
+        placeholder="Type to search..."
+        aria-controls="myTable"
+      />
+    </div>    
+    <br />
+    <br />
+    <table>
+      <tr>
+        <th>S No.</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Nick Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>1.</td>
+        <td>
+          <img
+            src="https://avatar.iran.liara.run/public/girl?username=Ash"
+            width="50"
+            height="50"
+            class="profile_img"
+          />
+        </td>
+        <td>Mitali Goura</td>
+        <td>Mitali</td>
+        <td>mitali@gmail.com</td>
+        <td><button onclick="changeStatus(this)">In-Active</button></td>
+        <td>
+          <button class="delete-btn">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>2.</td>
+        <td>
+          <img
+            src="https://avatar.iran.liara.run/public/boy?username=Ash"
+            width="50"
+            height="50"
+            class="profile_img"
+          />
+        </td>
+        <td>Lalit Mehra</td>
+        <td>Lalit</td>
+        <td>lalit@gmail.com</td>
+        <td><button onclick="changeStatus(this)">In-Active</button></td>
+        <td>
+          <button class="delete-btn">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </td>
+      </tr>
+    </table>
 
 <%- include("../layout/footer.ejs");%>

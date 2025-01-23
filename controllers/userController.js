@@ -1,15 +1,24 @@
 module.exports = {
 
-    signUp: async (req, res) => {
+    logIn:async(req,res)=>{
         try {
-            res.render("dashboard");
+            res.render("loginPage");
+        } catch (error) {
+            throw error
+        }
+    },
+    dashbaord: async (req, res) => {
+        try {
+            const title = 'dashboard'
+            res.render("dashboard", {title});
         } catch (error) {
             throw error;
         }
     },
     users: async (req, res) => {
         try {
-            res.render("users/userListings");
+            const title = "Users";
+            res.render("users/userListings", { title });
         } catch (error) {
             throw error;
         }

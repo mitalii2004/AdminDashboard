@@ -4,73 +4,75 @@
     <img class="img-g" src="/logo123.jpg" alt="Logo" />
   </div>
   <a
-    href="/"
-    class="nav-link"
+    href="/dashboard"
+    class="nav-link "
     data-page="Dashboard"
     onclick="updateCommonBar('Dashboard')"
     >Dashboard</a
   >
   <a
-    href="/users"
-    class="nav-link"
-    data-page="Users"
-    onclick="updateCommonBar('Dashboard/Users')"
-    >Users</a
-  >
+  href="/users"
+  class="nav-link <%= title === 'Users' ? 'active' : '' %>"
+  data-page="Users"
+  onclick="updateCommonBar('Users')"
+>
+  Users
+</a>
+
   <a
     href="/musics"
-    class="nav-link"
+    class="nav-link "
     data-page="Musics"
-    onclick="updateCommonBar('Dashboard/Musics')"
+    onclick="updateCommonBar('Musics')"
     >Musics</a
   >
   <a
     href="/challenges"
-    class="nav-link"
+    class="nav-link "
     data-page="Challenges"
-    onclick="updateCommonBar('Dashboard/Challenges')"
+    onclick="updateCommonBar('Challenges')"
     >Challenges</a
   >
   <a
     href="/contactUs"
-    class="nav-link"
+    class="nav-link "
     data-page="Contact Us"
-    onclick="updateCommonBar('Dashboard/Contact Us')"
+    onclick="updateCommonBar('Contact Us')"
     >Contact Us</a
   >
   <a
     href="/faq"
-    class="nav-link"
+    class="nav-link "
     data-page="FAQ"
-    onclick="updateCommonBar('Dashboard/FAQ')"
+    onclick="updateCommonBar('FAQ')"
     >FAQ</a
   >
   <a
     href="/banners"
     class="nav-link"
     data-page="Banners"
-    onclick="updateCommonBar('Dashboard/Banners')"
+    onclick="updateCommonBar('Banners')"
     >Banners</a
   >
   <a
     href="/termsConditions"
     class="nav-link"
     data-page="Terms & Conditions"
-    onclick="updateCommonBar('Dashboard/Terms & Conditions')"
+    onclick="updateCommonBar('Terms & Conditions')"
     >Terms & Conditions</a
   >
   <a
     href="/privacyPolicy"
     class="nav-link"
     data-page="Privacy Policy"
-    onclick="updateCommonBar('Dashboard/Privacy Policy')"
+    onclick="updateCommonBar('Privacy Policy')"
     >Privacy Policy</a
   >
   <a
     href="/aboutUs"
     class="nav-link"
     data-page="About Us"
-    onclick="updateCommonBar('Dashboard/About Us')"
+    onclick="updateCommonBar('About Us')"
     >About Us</a
   >
 </div>

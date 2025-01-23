@@ -1,77 +1,52 @@
-<%-include('layout/header.ejs');%>
+<%- include('layout/header.ejs'); %>
 
 <div class="dashboard">
-  <center>
-    <h2>Responsive Column Cards</h2>
-    <br>
-    <p>Resize the browser window to see the effect.</p>
-  </center>
-
   <div class="row">
     <div class="column">
       <div class="card1">
-        <h3>Card 1</h3>
-        <p>Some text</p>
-        <p>Some text</p>
+        <a href="/users">
+          <h3><i class="fas fa-users"></i> Users</h3>
+          <p>5</p>
+        </a>
       </div>
     </div>
 
     <div class="column">
       <div class="card2">
-        <h3>Card 2</h3>
-        <p>Some text</p>
-        <p>Some text</p>
+        <a href="/musics">
+          <h3><i class="fas fa-music"></i> Musics</h3>
+          <p>1</p>
+        </a>
       </div>
     </div>
 
     <div class="column">
       <div class="card3">
-        <h3>Card 3</h3>
-        <p>Some text</p>
-        <p>Some text</p>
+        <a href="/challenges">
+          <h3><i class="fas fa-trophy"></i> Challenges</h3>
+          <p>2</p>
+        </a>
       </div>
     </div>
 
     <div class="column">
       <div class="card4">
-        <h3>Card 4</h3>
-        <p>Some text</p>
-        <p>Some text</p>
+        <a href="/contactUs">
+          <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+          <p>4</p>
+        </a>
       </div>
     </div>
 
     <div class="column">
       <div class="card5">
-        <h3>Card 5</h3>
-        <p>Some text</p>
-        <p>Some text</p>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card6">
-        <h3>Card 6</h3>
-        <p>Some text</p>
-        <p>Some text</p>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card7">
-        <h3>Card 7</h3>
-        <p>Some text</p>
-        <p>Some text</p>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="card8">
-        <h3>Card 8</h3>
-        <p>Some text</p>
-        <p>Some text</p>
+        <a href="/faq">
+          <h3><i class="fas fa-question-circle"></i> FAQ</h3>
+          <p>4</p>
+        </a>
       </div>
     </div>
   </div>
 </div>
 
-<%-include('layout/footer.ejs');%>
+<%- include('layout/footer.ejs'); %>

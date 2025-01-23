@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const controller = require("../controllers/userController");
 
-router.get("/", controller.signUp);
+router.get("/",controller.logIn)
+router.get("/dashboard", controller.dashbaord);
 router.get("/users", controller.users);
 router.get("/musics", controller.musics);
 router.get("/challenges", controller.challenges);

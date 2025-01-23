@@ -3,25 +3,53 @@
 </body>
 </html>
 <script>
-    function updateCommonBar(text) {
-      document.getElementById("common-bar").innerText = text;
-  
-      const navLinks = document.querySelectorAll(".nav-link");
-      navLinks.forEach((link) => link.classList.remove("active"));
-  
-      const activeLink = [...navLinks].find((link) => link.dataset.page === text);
-      if (activeLink) activeLink.classList.add("active");
-  
-      localStorage.setItem("activePage", text);
-    }
-  
-    document.addEventListener("DOMContentLoaded", () => {
-      const activePage = localStorage.getItem("activePage");
-      if (activePage) {
-        updateCommonBar(activePage);
-      } else {
-        updateCommonBar('Dashboard');
+  /**
+   * Updates the common bar text and highlights the active sidebar link.
+   * @param {string} text - The text to display in the common bar.
+   */
+  function updateCommonBar(text) {
+    document.getElementById("common-bar").innerText = text;
+
+    const navLinks = document.querySelectorAll(".nav-link");
+    navLinks.forEach((link) => link.classList.remove("active"));
+
+    const activeLink = [...navLinks].find((link) => link.dataset.page === text);
+    if (activeLink) activeLink.classList.add("active");
+
+    localStorage.setItem("activePage", text);
+  }
+
+  /**
+   * Initialize the active state and common bar on page load.
+   */
+  document.addEventListener("DOMContentLoaded", () => {
+    const activePage = localStorage.getItem("activePage") || "Dashboard";
+    updateCommonBar(activePage);
+
+    const currentPath = window.location.pathname.split("?")[0];
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (href === currentPath) {
+        link.classList.add("active");
+        const text = link.dataset.page || "Dashboard";
+        updateCommonBar(text);
       }
     });
+  });
+
+  /**
+   * Toggles the status of a button between 'Active' and 'In-Active'.
+   * @param {HTMLElement} button - The button element to toggle.
+   */
+  function changeStatus(button) {
+    if (button.textContent.trim() === "In-Active") {
+      button.textContent = "Active";
+      button.classList.add("active");
+    } else {
+      button.textContent = "In-Active";
+      button.classList.remove("active");
+    }
+  }
 </script>
-  
