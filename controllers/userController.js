@@ -1,8 +1,15 @@
 module.exports = {
 
-    logIn:async(req,res)=>{
+    logIn: async (req, res) => {
         try {
             res.render("loginPage");
+        } catch (error) {
+            throw error
+        }
+    },
+    logout: async (req, res) => {
+        try {
+            res.render("loginPage")
         } catch (error) {
             throw error
         }
@@ -10,7 +17,7 @@ module.exports = {
     dashbaord: async (req, res) => {
         try {
             const title = 'dashboard'
-            res.render("dashboard", {title});
+            res.render("dashboard", { title });
         } catch (error) {
             throw error;
         }
@@ -25,56 +32,86 @@ module.exports = {
     },
     musics: async (req, res) => {
         try {
-            res.render("musics/musicListings");
+            const title = "Musics";
+            res.render("musics/musicListings", { title });
         } catch (error) {
             throw error;
         }
     },
+    addMusics: async (req, res) => {
+        try {
+            const title = "Musics";
+            res.render("musics/addMusicListings", { title });
+        } catch (error) {
+            throw error;
+        }
+    },
+    createMusics: async (req, res) => {
+        try {
+            let objToSave = {
+                title: req.body.title,
+                description: req.body.description,
+            }
+
+
+            const title = "Musics";
+            res.render("musics/musicListings", { title });
+        } catch (error) {
+
+        }
+    },
     challenges: async (req, res) => {
         try {
-            res.render("challenges/challengeListings");
+            const title = "Challenges";
+            res.render("challenges/challengeListings", { title });
         } catch (error) {
             throw error;
         }
     },
     contactUs: async (req, res) => {
         try {
-            res.render("contactUs/contactUsListings");
+            const title = "ContactUs";
+            res.render("contactUs/contactUsListings", { title });
         } catch (error) {
             throw error;
         }
     },
     faq: async (req, res) => {
         try {
-            res.render("faq/faqListings");
+            const title = "FAQ";
+            res.render("faq/faqListings", { title });
         } catch (error) {
             throw error;
         }
     },
     banners: async (req, res) => {
         try {
-            res.render("banners/bannerListings");
+            const title = "Banners";
+            res.render("banners/bannerListings", { title });
         } catch (error) {
             throw error;
         }
     },
     termsConditions: async (req, res) => {
         try {
-            res.render("termsConditions/termConditionListings");
+            const title = "TermsConditions";
+            res.render("termsConditions/termConditionListings", { title });
         } catch (error) {
             throw error;
         }
     },
     privacyPolicy: async (req, res) => {
         try {
-            res.render("privacyPolicy/privacyPolicyListings");
+            const title = "PrivacyPolicy";
+            res.render("privacyPolicy/privacyPolicyListings", { title });
         } catch (error) {
             throw error;
         }
     },
     aboutUs: async (req, res) => {
         try {
-            res.render("aboutUs/aboutUsListings");
+            const title = "AboutUs";
+            res.render("aboutUs/aboutUsListings", { title });
         } catch (error) {
             throw error;
         }

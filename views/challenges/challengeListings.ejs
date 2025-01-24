@@ -1,5 +1,49 @@
 <%- include("../layout/header.ejs");%>
 
-
+<style>
+    .challengeContainer {
+      padding: 1rem;
+    }
+    .add-challenge {
+      background-color: cadetblue;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+  
+  <div class="challengeContainer">
+    <a href="#" class="add-challenge">+ Add Challenge</a>
+  </div>
+  
+  <table>
+    <tr>
+      <th>S No.</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+      <td>1.</td>
+      <td>Dance</td>
+      <td>You have to dance for one whole minute.</td>
+      <td><button class="delete-btn">
+        <i class="fas fa-trash"></i> Delete
+      </button></td>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Song</td>
+        <td>You have to sing a song for two minutes.</td>
+        <td><button class="delete-btn">
+          <i class="fas fa-trash"></i> Delete
+        </button></td>
+      </tr>
+  </table>
+  
 
 <%- include("../layout/footer.ejs");%>

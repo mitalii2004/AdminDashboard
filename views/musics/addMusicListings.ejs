@@ -1,0 +1,115 @@
+<%- include("../layout/header.ejs");%>
+
+<div class="addMusic-container">
+    <h1>Add Music</h1>
+  <div class="backContainer">
+    <a href="/musicListings" class="backbutton">Back</a>
+  </div>
+
+  <br />
+  <br />
+  <h3>Title:</h3>
+  <input type="Title" name="MusicTitle" required />
+  <h3>Description:</h3>
+  <input type="Description" name="MusicDescription" required />
+  <h3>Upload Music File:</h3>
+  <input type="file" id="myfile" name="myfile" required />
+  <br />
+  <br />
+  <button type="submit">Submit</button>
+</div>
+
+<style>
+    h1{
+        text-align: left;;
+    }
+  .backContainer {
+    margin-left: 90%;
+    background-color: grey;
+    color: black;
+    padding: 0.5rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  .backbutton {
+    color: white;
+    text-decoration: none;
+    width: 60px;
+    font-size: 1.4rem;
+  }
+  .addMusic-container {
+    margin-top: 20px;
+    margin-left: 100px;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    text-align: center;
+  }
+
+  .addMusic-container h1 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #333;
+  }
+
+  .addMusic-container input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 1rem;
+  }
+
+  .addMusic-container input:focus {
+    outline: none;
+    border-color: #6a11cb;
+  }
+
+  .addMusic-container button {
+    margin-left: auto;
+    background: #6a11cb;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 4.5rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .addMusic-container button:hover {
+    background: #2575fc;
+  }
+
+  @media (max-width: 600px) {
+    .addMusic-container {
+      padding: 1.5rem;
+    }
+
+    .addMusic-container h1 {
+      font-size: 1.5rem;
+    }
+
+    .addMusic-container input {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .addMusic-container button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  h3 {
+    text-align: left;
+  }
+</style>
+
+<%- include("../layout/footer.ejs");%>
