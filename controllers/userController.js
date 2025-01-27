@@ -1,3 +1,6 @@
+const Models = require("../models/index");
+const helper = require('../helpers/fileUpload');
+
 module.exports = {
 
     logIn: async (req, res) => {
@@ -30,36 +33,59 @@ module.exports = {
             throw error;
         }
     },
-    musics: async (req, res) => {
+    music: async (req, res) => {
         try {
             const title = "Musics";
-            res.render("musics/musicListings", { title });
+            res.render("music/musicListings", { title });
         } catch (error) {
             throw error;
         }
     },
-    addMusics: async (req, res) => {
+    addMusic: async (req, res) => {
         try {
             const title = "Musics";
-            res.render("musics/addMusicListings", { title });
+            res.render("music/addMusicListings", { title });
         } catch (error) {
             throw error;
         }
     },
-    createMusics: async (req, res) => {
+
+    createMusic: async (req, res) => {
         try {
-            let objToSave = {
-                title: req.body.title,
-                description: req.body.description,
+            const { title, description } = req.body;
+
+            const musicFile = req.files.music;
+
+            console.log(musicFile, "musicFilemusicFile")
+
+            const allowedMimeTypes = ["audio/mpeg", "audio/wav", "audio/mp3"];
+            console.log("Uploaded file MIME type:", musicFile);
+            if (!allowedMimeTypes.includes(musicFile)) {
+
+                return res.redirect("/music");
             }
 
+            const maxFileSize = 10 * 1024 * 1024;
+            if (musicFile.size > maxFileSize) {
+                return res.redirect("/music");
+            }
 
-            const title = "Musics";
-            res.render("musics/musicListings", { title });
+            const musicFilePath = await helper.fileUpload(musicFile, "Musics");
+
+            let objToSave = {
+                title: title,
+                description: description,
+                music: musicFilePath
+            }
+            await Models.musicModel.create(objToSave)
+            res.redirect("/music");
         } catch (error) {
-
+            console.error("Error adding music:", error);
+            res.redirect("/addMusicListings",{ musicData: musicData });
         }
     },
+
+
     challenges: async (req, res) => {
         try {
             const title = "Challenges";
@@ -116,4 +142,6 @@ module.exports = {
             throw error;
         }
     },
+
 }
+

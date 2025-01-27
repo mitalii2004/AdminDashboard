@@ -1,28 +1,45 @@
 <%- include("../layout/header.ejs");%>
 
 <div class="addMusic-container">
-    <h1>Add Music</h1>
+  <h1>Add Music</h1>
   <div class="backContainer">
-    <a href="/musicListings" class="backbutton">Back</a>
+    <a
+      href="#"
+      onclick="window.location.href=document.referrer;"
+      class="backbutton"
+      >Back</a
+    >
   </div>
 
   <br />
   <br />
-  <h3>Title:</h3>
-  <input type="Title" name="MusicTitle" required />
-  <h3>Description:</h3>
-  <input type="Description" name="MusicDescription" required />
-  <h3>Upload Music File:</h3>
-  <input type="file" id="myfile" name="myfile" required />
-  <br />
-  <br />
-  <button type="submit">Submit</button>
+  <form action="/createMusic" method="POST" enctype="multipart/form-data">
+    <h3>Title:</h3>
+    <input type="Title" name="MusicTitle" required />
+    <h3>Description:</h3>
+    <input type="Description" name="MusicDescription" required />
+    <h3>Music:</h3>
+    <input type="file" id="myfile" name="myfile" required />
+    <br />
+    <br />
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- <form action="/createMusic">
+    <label for="title"><h3>Title:</h3></label><br />
+    <input type="title" id="title" name="title" /><br />
+    <label for="description"><h3>Description:</h3></label><br />
+    <input type="description" id="description" name="description" /><br />
+    <label for="music"><h3>Music:</h3></label><br />
+    <input type="file" id="myfile" name="myfile" /><br /><br />
+    <input type="submit" value="Submit" />
+  </form> -->
 </div>
 
 <style>
-    h1{
-        text-align: left;;
-    }
+  h1 {
+    text-align: left;
+  }
   .backContainer {
     margin-left: 90%;
     background-color: grey;
