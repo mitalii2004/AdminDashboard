@@ -36,11 +36,14 @@ module.exports = {
     music: async (req, res) => {
         try {
             const title = "Musics";
-            res.render("music/musicListings", { title });
+            const musicData = await Models.musicModel.findAll(); // Fetch music data
+            res.render("music/musicListings", { title, musicData }); // Pass musicData to the template
         } catch (error) {
-            throw error;
+            console.error("Error fetching music data:", error);
+            res.render("music/musicListings", { title: "Musics", musicData: [] });
         }
     },
+
     addMusic: async (req, res) => {
         try {
             const title = "Musics";
@@ -53,20 +56,26 @@ module.exports = {
     createMusic: async (req, res) => {
         try {
             const { title, description } = req.body;
+            const musicFile = req.files?.music;
 
-            const musicFile = req.files.music;
+            if (!musicFile) {
+                console.error("No music file uploaded.");
+                return res.redirect("/music");
+            }
 
-            console.log(musicFile, "musicFilemusicFile")
+            console.log(musicFile, "musicFilemusicFile");
 
             const allowedMimeTypes = ["audio/mpeg", "audio/wav", "audio/mp3"];
-            console.log("Uploaded file MIME type:", musicFile);
-            if (!allowedMimeTypes.includes(musicFile)) {
+            console.log("Uploaded file MIME type:", musicFile.mimetype);
 
+            if (!allowedMimeTypes.includes(musicFile.mimetype)) {
+                console.error("Invalid MIME type.");
                 return res.redirect("/music");
             }
 
             const maxFileSize = 10 * 1024 * 1024;
             if (musicFile.size > maxFileSize) {
+                console.error("File size exceeds the limit.");
                 return res.redirect("/music");
             }
 
@@ -76,15 +85,21 @@ module.exports = {
                 title: title,
                 description: description,
                 music: musicFilePath
-            }
-            await Models.musicModel.create(objToSave)
-            res.redirect("/music");
+            };
+
+            await Models.musicModel.create(objToSave);
+
+            const musicData = await Models.musicModel.findAll();
+
+            res.render("music/musicListings", { title: "Musics", musicData });
         } catch (error) {
             console.error("Error adding music:", error);
-            res.redirect("/addMusicListings",{ musicData: musicData });
+
+            const musicData = await Models.musicModel.findAll();
+
+            res.render("music/musicListings", { title: "Musics", musicData });
         }
     },
-
 
     challenges: async (req, res) => {
         try {

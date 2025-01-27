@@ -28,24 +28,23 @@
     <th>Music</th>
     <th>Action</th>
   </tr>
-  <tr>
-    <td>1.</td>
-    <td>Song</td>
-    <td>Music Description</td>
-    <td>
-      <audio controls="">
-        <source
-          src="/music/4792aeb8-d598-4a55-be1a-bf690b6c18bd.mp3"
-          type="audio/mpeg"
-        />
-        Your browser does not support the audio element.
-      </audio>
-    </td>
-    <td>
-      <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
-    </td>
-  </tr>
-</table>
 
+  <% musicData.forEach((music, index) => { %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= music.title %></td>
+      <td><%= music.description %></td>
+      <td>
+        <audio controls="">
+          <source src="<%= music.music %>" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </td>
+      <td>
+        <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
+      </td>
+    </tr>
+  <% }); %>
+</table>
 
 <%- include("../layout/footer.ejs");%>
