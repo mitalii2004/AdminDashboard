@@ -1,127 +1,104 @@
 <%- include("../layout/header.ejs");%>
-   
-    <div class="search-container">
-      <label for="search">Search:</label>
-      <input
-        id="search"
-        type="search"
-        placeholder="Type to search..."
-        aria-controls="myTable"
-      />
-    </div>    
-    <br />
-    <br />
-    <table>
-      <tr>
-        <th>S No.</th>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Nick Name</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-      <tr>
-        <td>1.</td>
-        <td>
-          <img
-            src="https://avatar.iran.liara.run/public/girl?username=Ash"
-            width="50"
-            height="50"
-            class="profile_img"
-          />
-        </td>
-        <td>Mitali Goura</td>
-        <td>Mitali</td>
-        <td>mitali@gmail.com</td>
-        <td><button onclick="changeStatus(this)">In-Active</button></td>
-        <td>
-          <button class="delete-btn">
-            <i class="fas fa-trash"></i> Delete
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>2.</td>
-        <td>
-          <img
-            src="https://avatar.iran.liara.run/public/boy?username=Ash"
-            width="50"
-            height="50"
-            class="profile_img"
-          />
-        </td>
-        <td>Lalit Mehra</td>
-        <td>Lalit</td>
-        <td>lalit@gmail.com</td>
-        <td><button onclick="changeStatus(this)">In-Active</button></td>
-        <td>
-          <button class="delete-btn">
-            <i class="fas fa-trash"></i> Delete
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>3.</td>
-        <td>
-          <img
-            src="https://avatar.iran.liara.run/public/girl?username=Ash"
-            width="50"
-            height="50"
-            class="profile_img"
-          />
-        </td>
-        <td>Anaya Sharma</td>
-        <td>Anaya</td>
-        <td>anaya@gmail.com</td>
-        <td><button onclick="changeStatus(this)">In-Active</button></td>
-        <td>
-          <button class="delete-btn">
-            <i class="fas fa-trash"></i> Delete
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>4.</td>
-        <td>
-          <img
-            src="https://avatar.iran.liara.run/public/boy?username=Ash"
-            width="50"
-            height="50"
-            class="profile_img"
-          />
-        </td>
-        <td>kunal Verma</td>
-        <td>Kunal</td>
-        <td>kunal@gmail.com</td>
-        <td><button onclick="changeStatus(this)">In-Active</button></td>
-        <td>
-          <button class="delete-btn">
-            <i class="fas fa-trash"></i> Delete
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>5.</td>
-        <td>
-          <img
-            src="https://avatar.iran.liara.run/public/girl?username=Ash"
-            width="50"
-            height="50"
-            class="profile_img"
-          />
-        </td>
-        <td>Riya Mehra</td>
-        <td>Riya</td>
-        <td>riya@gmail.com</td>
-        <td><button onclick="changeStatus(this)">In-Active</button></td>
-        <td>
-          <button class="delete-btn">
-            <i class="fas fa-trash"></i> Delete
-          </button>
-        </td>
-      </tr>
 
-    </table>
+<style>
+  .userContainer {
+    padding: 1rem;
+  }
+  .add-user {
+    background-color: cadetblue;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+</style>
+
+<div class="userContainer">
+  <a href="/addUser" class="add-user">+ Add User</a>
+</div>
+<div class="search-container">
+  <label for="search">Search:</label>
+  <input
+    id="search"
+    type="search"
+    placeholder="Type to search..."
+    aria-controls="myTable"
+  />
+</div>
+<br />
+<br />
+<table>
+  <tr>
+    <th>S. No.</th>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Nick Name</th>
+    <th>Email</th>
+    <th>Status</th>
+    <th>Edit</th>
+    <th>Action</th>
+  </tr>
+
+  <% userData.forEach((users, index) => { %>
+  <tr>
+    <td><%= index + 1 %></td>
+    <td>
+      <img
+        src="<%= users.image %>"
+        alt="User Image"
+        style="width: 50px; height: 50px"
+      />
+    </td>
+
+    <td><%= users.name %></td>
+    <td><%= users.nickName %></td>
+    <td><%= users.email %></td>
+    <td><button onclick="changeStatus(this)">In-Active</button></td>
+    <td>
+      <form action="/editUser" method="get" id="<%= users.edit%>">
+        <button class="edit-btn" style="padding: 5px 10px"><i class="fas fa-edit"></i>Edit</button>
+      </form>
+    </td>
+    <td> 
+      <button class="delete-btn" id="<%=users.id%>">
+        <i class="fas fa-trash"></i> Delete
+      </button>
+    </td>
+  </tr>
+  <% }); %>
+</table>
+<script
+  src="https://code.jquery.com/jquery-3.6.3.min.js"
+  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+  crossorigin="anonymous"
+></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".delete-btn").forEach((button) => {
+      button.addEventListener("click", function () {
+        if (confirm("Are you sure you want to delete this item?")) {
+          const row = this.closest("tr");
+          if (row) {
+            $.ajax({
+              url: `/deleteUser/${button.id}`,
+              type: "delete",
+              success: function (result) {
+                if (result.status == 200) {
+                  window.location.reload();
+                }
+              },
+            });
+          } else {
+            console.error("No row found to delete.");
+          }
+        }
+      });
+    });
+  });
+</script>
 
 <%- include("../layout/footer.ejs");%>

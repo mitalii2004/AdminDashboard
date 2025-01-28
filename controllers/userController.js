@@ -10,6 +10,7 @@ module.exports = {
             throw error
         }
     },
+
     logout: async (req, res) => {
         try {
             res.render("loginPage")
@@ -17,6 +18,7 @@ module.exports = {
             throw error
         }
     },
+
     dashbaord: async (req, res) => {
         try {
             const title = 'dashboard'
@@ -25,19 +27,148 @@ module.exports = {
             throw error;
         }
     },
+
     users: async (req, res) => {
         try {
             const title = "Users";
-            res.render("users/userListings", { title });
+            const userData = await Models.userModel.findAll();
+            res.render("users/userListings", { title, userData });
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            res.render("users/userListings", { title: "Users", userData: [] });
+        }
+    },
+
+    addUser: async (req, res) => {
+        try {
+            const title = "Users";
+            res.render("users/addUserListings", { title });
         } catch (error) {
             throw error;
         }
     },
+
+    createUser: async (req, res) => {
+        try {
+            console.log(req.files, "hiiiiiiiii")
+            const { name, nickName, email, status } = req.body;
+            const userFile = req.files?.image;
+            var userFilePath
+            if (req.files && req.files.image) {
+                userFilePath = await helper.imageUpload(userFile, "Users");
+            }
+
+            const objToSave = {
+                name,
+                nickName,
+                email,
+                status,
+                image: userFilePath,
+            };
+
+            await Models.userModel.create(objToSave);
+
+            res.redirect("/users");
+        } catch (error) {
+            console.error("Error adding music:", error);
+            res.redirect("/users");
+        }
+    },
+
+    // editUser: async (req, res) => {
+    //     try {
+    //         const title = "Users";
+    //         res.render("users/editUserListings", { title });
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // },
+
+
+    editUser: async (req, res) => {
+        try {
+            const { id } = req.body;
+            if (!id) {
+                return res.status(400).json({ error: "User ID is required." });
+            }
+
+            const user = await Models.userModel.findOne({ where: { id } });
+            if (!user) {
+                return res.status(404).json({ error: "User not found." });
+            }
+
+            const title = "Users";
+            res.render("users/editUserListings", { title, user });
+        } catch (error) {
+            console.error("Error fetching user details:", error);
+            res.redirect("/users");
+        }
+    },
+
+    updateUser: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { name, nickName, email, status } = req.body;
+            const userFile = req.files?.image;
+
+            if (!id) {
+                return res.status(400).json({ error: "User ID is required." });
+            }
+
+            const user = await Models.userModel.findOne({ where: { id } });
+            if (!user) {
+                return res.status(404).json({ error: "User not found." });
+            }
+
+            let userFilePath = user.image;
+            if (userFile) {
+                userFilePath = await helper.imageUpload(userFile, "Users");
+            }
+
+            const updatedData = {
+                name,
+                nickName,
+                email,
+                status,
+                image: userFilePath,
+            };
+
+            await Models.userModel.update(updatedData, { where: { id } });
+
+            res.redirect("/users");
+        } catch (error) {
+            console.error("Error updating user:", error);
+            res.redirect("/users");
+        }
+    },
+
+
+    deleteUser: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                return res.status(400).json({ error: "User ID is required." });
+            }
+            const deletedUser = await Models.userModel.destroy({
+                where: { id },
+            });
+
+            if (!deletedUser) {
+                return res.status(404).json({ error: "User not found." });
+            }
+
+            return res.status(200).json({ status: 200, message: "User deleted successfully." });
+        } catch (error) {
+            throw error
+        }
+    },
+
     music: async (req, res) => {
         try {
             const title = "Musics";
-            const musicData = await Models.musicModel.findAll(); // Fetch music data
-            res.render("music/musicListings", { title, musicData }); // Pass musicData to the template
+            const musicData = await Models.musicModel.findAll();
+            res.render("music/musicListings", { title, musicData });
         } catch (error) {
             console.error("Error fetching music data:", error);
             res.render("music/musicListings", { title: "Musics", musicData: [] });
@@ -55,19 +186,17 @@ module.exports = {
 
     createMusic: async (req, res) => {
         try {
-            const { title, description } = req.body;
-            const musicFile = req.files?.music;
+            const { MusicTitle: title, MusicDescription: description } = req.body;
+            const musicFile = req.files?.myfile;
 
             if (!musicFile) {
                 console.error("No music file uploaded.");
                 return res.redirect("/music");
             }
 
-            console.log(musicFile, "musicFilemusicFile");
+            console.log("Uploaded file:", musicFile);
 
             const allowedMimeTypes = ["audio/mpeg", "audio/wav", "audio/mp3"];
-            console.log("Uploaded file MIME type:", musicFile.mimetype);
-
             if (!allowedMimeTypes.includes(musicFile.mimetype)) {
                 console.error("Invalid MIME type.");
                 return res.redirect("/music");
@@ -78,26 +207,47 @@ module.exports = {
                 console.error("File size exceeds the limit.");
                 return res.redirect("/music");
             }
-
             const musicFilePath = await helper.fileUpload(musicFile, "Musics");
 
-            let objToSave = {
-                title: title,
-                description: description,
-                music: musicFilePath
+            if (!musicFilePath) {
+                console.error("File upload failed.");
+                return res.redirect("/music");
+            }
+            const objToSave = {
+                title,
+                description,
+                music: musicFilePath,
             };
+            console.log("Saving object:", objToSave);
 
             await Models.musicModel.create(objToSave);
 
-            const musicData = await Models.musicModel.findAll();
-
-            res.render("music/musicListings", { title: "Musics", musicData });
+            // Redirect to the music listing page
+            res.redirect("/music");
         } catch (error) {
             console.error("Error adding music:", error);
+            res.redirect("/music");
+        }
+    },
 
-            const musicData = await Models.musicModel.findAll();
+    deleteMusic: async (req, res) => {
+        try {
+            const { id } = req.params;
 
-            res.render("music/musicListings", { title: "Musics", musicData });
+            if (!id) {
+                return res.status(400).json({ error: "Music ID is required." });
+            }
+            const deletedMusic = await Models.musicModel.destroy({
+                where: { id },
+            });
+
+            if (!deletedMusic) {
+                return res.status(404).json({ error: "Music not found." });
+            }
+
+            return res.status(200).json({ status: 200, message: "Music deleted successfully." });
+        } catch (error) {
+            throw error
         }
     },
 
@@ -109,6 +259,16 @@ module.exports = {
             throw error;
         }
     },
+
+    addChallenges: async (req, res) => {
+        try {
+            const title = "Challenges";
+            res.render("challenges/addChallengeListings", { title });
+        } catch (error) {
+            throw error;
+        }
+    },
+
     contactUs: async (req, res) => {
         try {
             const title = "ContactUs";
@@ -117,6 +277,7 @@ module.exports = {
             throw error;
         }
     },
+
     faq: async (req, res) => {
         try {
             const title = "FAQ";
@@ -125,6 +286,7 @@ module.exports = {
             throw error;
         }
     },
+
     banners: async (req, res) => {
         try {
             const title = "Banners";
@@ -133,6 +295,7 @@ module.exports = {
             throw error;
         }
     },
+
     termsConditions: async (req, res) => {
         try {
             const title = "TermsConditions";
@@ -141,6 +304,7 @@ module.exports = {
             throw error;
         }
     },
+
     privacyPolicy: async (req, res) => {
         try {
             const title = "PrivacyPolicy";
@@ -149,6 +313,7 @@ module.exports = {
             throw error;
         }
     },
+
     aboutUs: async (req, res) => {
         try {
             const title = "AboutUs";

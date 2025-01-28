@@ -59,15 +59,26 @@
     });
   });
 
-
-
-
   document.querySelectorAll('.delete-btn').forEach((button) => {
-    button.addEventListener('click', function () {
-      const row = this.closest('tr'); 
+  button.addEventListener('click', function () {
+    const row = this.closest('tr');
+    if (row) {
       row.remove(); 
-    });
+    } else {
+      console.error('No row found to delete.');
+    }
   });
+});
+
+
+
+
+  // document.querySelectorAll('.delete-btn').forEach((button) => {
+  //   button.addEventListener('click', function () {
+  //     const row = this.closest('tr'); 
+  //     row.remove(); 
+  //   });
+  // });
 
   document.getElementById('search').addEventListener('input', function () {
     const searchValue = this.value.toLowerCase(); 
