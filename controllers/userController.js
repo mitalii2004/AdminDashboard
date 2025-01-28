@@ -75,72 +75,72 @@ module.exports = {
         }
     },
 
-    // editUser: async (req, res) => {
-    //     try {
-    //         const title = "Users";
-    //         res.render("users/editUserListings", { title });
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // },
-
-
     editUser: async (req, res) => {
         try {
-            const { id } = req.body;
-            if (!id) {
-                return res.status(400).json({ error: "User ID is required." });
-            }
-
-            const user = await Models.userModel.findOne({ where: { id } });
-            if (!user) {
-                return res.status(404).json({ error: "User not found." });
-            }
-
             const title = "Users";
-            res.render("users/editUserListings", { title, user });
+            res.render("users/editUserListings", { title });
         } catch (error) {
-            console.error("Error fetching user details:", error);
-            res.redirect("/users");
+            throw error;
         }
     },
 
-    updateUser: async (req, res) => {
-        try {
-            const { id } = req.params;
-            const { name, nickName, email, status } = req.body;
-            const userFile = req.files?.image;
 
-            if (!id) {
-                return res.status(400).json({ error: "User ID is required." });
-            }
+    // editUser: async (req, res) => {
+    //     try {
+    //         const { id } = req.body;
+    //         if (!id) {
+    //             return res.status(400).json({ error: "User ID is required." });
+    //         }
 
-            const user = await Models.userModel.findOne({ where: { id } });
-            if (!user) {
-                return res.status(404).json({ error: "User not found." });
-            }
+    //         const user = await Models.userModel.findOne({ where: { id } });
+    //         if (!user) {
+    //             return res.status(404).json({ error: "User not found." });
+    //         }
 
-            let userFilePath = user.image;
-            if (userFile) {
-                userFilePath = await helper.imageUpload(userFile, "Users");
-            }
+    //         const title = "Users";
+    //         res.render("users/editUserListings", { title, user });
+    //     } catch (error) {
+    //         console.error("Error fetching user details:", error);
+    //         res.redirect("/users");
+    //     }
+    //},
 
-            const updatedData = {
-                name,
-                nickName,
-                email,
-                status,
-                image: userFilePath,
-            };
+    // updateUser: async (req, res) => {
+    //     try {
+    //         const { id } = req.params;
+    //         const { name, nickName, email, status } = req.body;
+    //         const userFile = req.files?.image;
 
-            await Models.userModel.update(updatedData, { where: { id } });
+    //         if (!id) {
+    //             return res.status(400).json({ error: "User ID is required." });
+    //         }
 
-            res.redirect("/users");
-        } catch (error) {
-            console.error("Error updating user:", error);
-            res.redirect("/users");
-        }
-    },
+    //         const user = await Models.userModel.findOne({ where: { id } });
+    //         if (!user) {
+    //             return res.status(404).json({ error: "User not found." });
+    //         }
+
+    //         let userFilePath = user.image;
+    //         if (userFile) {
+    //             userFilePath = await helper.imageUpload(userFile, "Users");
+    //         }
+
+    //         const updatedData = {
+    //             name,
+    //             nickName,
+    //             email,
+    //             status,
+    //             image: userFilePath,
+    //         };
+
+    //         await Models.userModel.update(updatedData, { where: { id } });
+
+    //         res.redirect("/users");
+    //     } catch (error) {
+    //         console.error("Error updating user:", error);
+    //         res.redirect("/users");
+    //     }
+    // },
 
 
     deleteUser: async (req, res) => {

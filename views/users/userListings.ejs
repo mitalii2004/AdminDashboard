@@ -38,7 +38,6 @@
     <th>Nick Name</th>
     <th>Email</th>
     <th>Status</th>
-    <th>Edit</th>
     <th>Action</th>
   </tr>
 
@@ -59,10 +58,12 @@
     <td><button onclick="changeStatus(this)">In-Active</button></td>
     <td>
       <form action="/editUser" method="get" id="<%= users.edit%>">
-        <button class="edit-btn" style="padding: 5px 10px"><i class="fas fa-edit"></i>Edit</button>
+        <button class="edit-btn" style="padding: 5px 10px">
+          <i class="fas fa-edit"></i>Edit
+        </button>
       </form>
     </td>
-    <td> 
+    <td>
       <button class="delete-btn" id="<%=users.id%>">
         <i class="fas fa-trash"></i> Delete
       </button>
