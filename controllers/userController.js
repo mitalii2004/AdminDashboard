@@ -78,11 +78,10 @@ module.exports = {
         try {
             const { id } = req.params;
             const title = "Users";
-
-            if (!id) return res.status(400).send("User ID is required");
-
-            const user = await Models.userModel.findOne({ id: id })
-            if (!user) return res.status(404).send("User not found");
+            
+            const user = await Models.userModel.findOne({where:{
+                id:id
+            } })
 
             console.log(user,"useruser")
 

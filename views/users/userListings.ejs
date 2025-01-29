@@ -76,11 +76,9 @@
     <td><button onclick="changeStatus(this)">In-Active</button></td>
     <td>
       <div class="action-buttons">
-        <form action="/editUser/<%= users.id %>" method="get">
-          <button class="edit-btn" type="submit">
+        <a href="/editUser/<%= users.id %>">
             <i class="fas fa-edit"></i>
-          </button>
-        </form>      
+          </a>
         <button class="delete-btn" id="<%= users.id %>">
           <i class="fas fa-trash"></i>
         </button>
