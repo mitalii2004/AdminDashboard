@@ -84,7 +84,6 @@ module.exports = {
         }
     },
 
-
     // editUser: async (req, res) => {
     //     try {
     //         const { id } = req.body;
@@ -141,8 +140,7 @@ module.exports = {
     //         res.redirect("/users");
     //     }
     // },
-
-
+    // 
     deleteUser: async (req, res) => {
         try {
             const { id } = req.params;
