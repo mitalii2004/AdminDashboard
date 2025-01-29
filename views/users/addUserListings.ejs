@@ -12,8 +12,25 @@
   </div>
 
   <form action="/createUser" method="POST" enctype="multipart/form-data">
-    <h3>Image:</h3>
-    <input type="file" name="image" required />
+
+<!-- Default image preview -->
+<img 
+  id="previewImage"
+  src="/images/default.png"
+  alt="User Image"
+  style="width: 100px; height: 100px; cursor: pointer; border-radius: 10px;"
+/>
+
+<!-- Hidden file input -->
+<input
+  type="file"
+  name="image"
+  id="imageUpload"
+  accept="image/*"
+  style="display: none;"
+  required
+/>
+
     <h3>Name:</h3>
     <input type="text" name="name" required />
     <h3>Nick Name:</h3>
@@ -116,5 +133,23 @@
     text-align: left;
   }
 </style>
+
+<script>
+  document.getElementById("previewImage").addEventListener("click", function () {
+  document.getElementById("imageUpload").click(); // Open file select dialog
+});
+
+document.getElementById("imageUpload").addEventListener("change", function (event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      document.getElementById("previewImage").src = e.target.result; // Update preview image
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+</script>
 
 <%- include("../layout/footer.ejs");%>

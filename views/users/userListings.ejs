@@ -1,23 +1,9 @@
 <%- include("../layout/header.ejs");%>
 
 <style>
-  .userContainer {
-    padding: 1rem;
-  }
-  .add-user {
-    background-color: cadetblue;
-    color: white;
-    padding: 0.8rem 1.5rem;
-    text-decoration: none;
-    border-radius: 5px;
-    display: inline-block;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-
+  
   .action-buttons {
     display: flex;
-    gap: 10px; 
     align-items: center; 
   }
 
@@ -32,20 +18,47 @@
   .action-buttons i {
     font-size: 1rem;
   }
-</style>
 
+  .userContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-user {
+  margin-right: 5%;
+  background-color: cadetblue;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+
+</style>
 <div class="userContainer">
+  <div class="search-container">
+    <label for="search">Search:</label>
+    <input
+      id="search"
+      type="search"
+      placeholder="Type to search..."
+      aria-controls="myTable"
+    />
+  </div>
   <a href="/addUser" class="add-user">+ Add User</a>
 </div>
-<div class="search-container">
-  <label for="search">Search:</label>
-  <input
-    id="search"
-    type="search"
-    placeholder="Type to search..."
-    aria-controls="myTable"
-  />
-</div>
+
+
 <br />
 <br />
 <table>
@@ -63,12 +76,12 @@
   <tr>
     <td><%= index + 1 %></td>
     <td>
-      <img
-        src="<%= users.image %>"
-        alt="User Image"
-        style="width: 50px; height: 50px"
-      />
-    </td>
+      <img src="<%= users.image ? users.image : '/images/default.png' %>"
+          alt="User Image"
+          style="width: 50px; height: 50px; border-radius: 10px;">
+  </td>
+  
+      </td>
 
     <td><%= users.name %></td>
     <td><%= users.nickName %></td>

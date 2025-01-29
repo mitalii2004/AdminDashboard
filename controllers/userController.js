@@ -92,54 +92,47 @@ module.exports = {
         }
     },
 
-    // updateUser: async (req, res) => {
-    //     try {
-    //         const { id } = req.params;
-    //         const { name, nickName, email } = req.body;
-
-    //         if (!id) return res.status(400).send("User ID is required");
-
-    //         const updatedUser = await Models.userModel.findByIdAndUpdate(id, { name, nickName, email }, { raw: true });
-
-    //         if (!updatedUser) return res.status(404).send("User not found");
-
-    //         res.redirect("/userListings");
-    //     } catch (error) {
-    //         console.error(error);
-    //         res.status(500).send("Error updating user");
-    //     }
-    // },
-
     updateUser: async (req, res) => {
         try {
             console.log(req.body, "req.body");
             console.log(req.params.id, "User ID received");
     
-            const { name, nickName, email } = req.body;
             const userId = req.params.id;
-    
             if (!userId) {
                 return res.status(400).send("User ID is required");
             }
     
+            // Get user from the database
+            const user = await Models.userModel.findOne({ where: { id: userId } });
+            if (!user) {
+                return res.status(404).send("User not found");
+            }
+    
+            let userFilePath = user.image; // Keep existing image
+            if (req.files && req.files.image) {
+                const userFile = req.files.image;
+                userFilePath = await helper.imageUpload(userFile, "Users"); // Upload new image
+            }
+    
+            // Update user with new data
             const updatedUser = await Models.userModel.update(
-                { name, nickName, email },
+                {
+                    image: userFilePath,
+                    name: req.body.name,
+                    nickName: req.body.nickName,
+                    email: req.body.email,
+                },
                 { where: { id: userId } }
             );
     
             console.log(updatedUser, "updatedUserupdatedUser");
-    
-            if (updatedUser[0] === 0) {
-                return res.status(404).send("User not found");
-            }
     
             res.redirect("/users");
         } catch (error) {
             console.error(error);
             res.status(500).send("Error updating user");
         }
-    }
-    ,
+    },
 
     deleteUser: async (req, res) => {
         try {

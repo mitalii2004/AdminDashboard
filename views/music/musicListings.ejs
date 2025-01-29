@@ -1,22 +1,58 @@
 <%- include("../layout/header.ejs"); %>
 
 <style>
+  .action-buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  .action-buttons button {
+    background-color: darkorange;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .action-buttons i {
+    font-size: 1rem;
+  }
+
   .musicContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 1rem;
   }
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   .add-music {
+    margin-right: 5%;
     background-color: cadetblue;
     color: white;
     padding: 0.8rem 1.5rem;
     text-decoration: none;
     border-radius: 5px;
-    display: inline-block;
     font-size: 1rem;
-    margin-bottom: 1rem;
+    white-space: nowrap;
   }
 </style>
 
 <div class="musicContainer">
+  <div class="search-container">
+    <label for="search">Search:</label>
+    <input
+      id="search"
+      type="search"
+      placeholder="Type to search..."
+      aria-controls="myTable"
+    />
+  </div>
   <a href="/addMusic" class="add-music">+ Add Music</a>
 </div>
 
@@ -40,7 +76,7 @@
         Your browser does not support the audio element.
       </audio>
     </td>
-    <td>
+    <!-- <td>
       <form action="/editMusic" method="get" id="<%= music.edit%>">
         <button class="edit-btn">
           <i class="fas fa-edit"></i>
@@ -49,6 +85,16 @@
       <button class="delete-btn" id="<%=music.id%>">
         <i class="fas fa-trash"></i>
       </button>
+    </td> -->
+    <td>
+      <div class="action-buttons">
+        <a href="/editMusic/<%= music.id %>">
+          <i class="fas fa-edit"></i>
+        </a>
+        <button class="delete-btn" id="<%= music.id %>">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
     </td>
   </tr>
   <% }); %>
