@@ -41,12 +41,23 @@
       </audio>
     </td>
     <td>
-      <button class="delete-btn" id="<%=music.id%>"><i class="fas fa-trash"></i> Delete</button>
+      <form action="/editMusic" method="get" id="<%= music.edit%>">
+        <button class="edit-btn">
+          <i class="fas fa-edit"></i>
+        </button>
+      </form>
+      <button class="delete-btn" id="<%=music.id%>">
+        <i class="fas fa-trash"></i>
+      </button>
     </td>
   </tr>
   <% }); %>
 </table>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.3.min.js"
+  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+  crossorigin="anonymous"
+></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -57,15 +68,14 @@
           if (row) {
             // row.remove();
             $.ajax({
-          url: `/deleteMusic/${button.id}`,
-          type: 'delete',
-          success: function(result) {
-           if(result.status == 200){
-             window.location.reload()
-           }
-          }
-        })
-        
+              url: `/deleteMusic/${button.id}`,
+              type: "delete",
+              success: function (result) {
+                if (result.status == 200) {
+                  window.location.reload();
+                }
+              },
+            });
           } else {
             console.error("No row found to delete.");
           }

@@ -7,8 +7,8 @@ router.get("/dashboard", controller.dashbaord);
 router.get("/users", controller.users);
 router.get("/addUser", controller.addUser)
 router.post("/createUser", controller.createUser);
-router.get("/editUser", controller.editUser);
-// router.post("/updateUser/:id", controller.updateUser);
+router.get("/editUser/:id", controller.editUser);
+router.post("/updateUser/:id", controller.updateUser);
 router.delete("/deleteUser/:id", controller.deleteUser)
 router.get("/music", controller.music);
 router.get("/addMusic", controller.addMusic);

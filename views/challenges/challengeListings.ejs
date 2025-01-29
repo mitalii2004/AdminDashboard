@@ -31,16 +31,22 @@
       <td>1.</td>
       <td>Dance</td>
       <td>You have to dance for one whole minute.</td>
-      <td><button class="delete-btn">
-        <i class="fas fa-trash"></i> Delete
-      </button></td>
-    </tr>
+      <td>
+        <form action="/editChallenge" method="get" id="<%= challenge.edit%>">
+          <button class="edit-btn">
+            <i class="fas fa-edit"></i>
+          </button>
+        </form>
+        <button class="delete-btn" id="<%=challenge.id%>">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>    </tr>
     <tr>
         <td>1.</td>
         <td>Song</td>
         <td>You have to sing a song for two minutes.</td>
         <td><button class="delete-btn">
-          <i class="fas fa-trash"></i> Delete
+          <i class="fas fa-trash"></i>
         </button></td>
       </tr>
   </table>

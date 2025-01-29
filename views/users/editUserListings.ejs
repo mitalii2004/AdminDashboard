@@ -1,6 +1,6 @@
 <%- include("../layout/header.ejs");%>
 
-<div class="addUser-container">
+<div class="editUser-container">
   <h1>Edit User</h1>
   <div class="backContainer">
     <a
@@ -11,25 +11,30 @@
     >
   </div>
 
-  <form action="/editUser" method="POST" enctype="multipart/form-data">
-    <h3>Image:</h3>
-    <input type="file" name="image" required />
+  <form action="/updateUser/<%= users.id %>" method="post">
+    <!-- <input type="hidden" name="id" value="<%= users.id %>" /> -->
+  
+    <!-- <h3>Image:</h3> -->
+    <img src="<%= users.image %>" width="100" />
+  
     <h3>Name:</h3>
-    <input type="text" name="name" required />
+    <input type="text" name="name" value="<%= users.name %>" />
+  
     <h3>Nick Name:</h3>
-    <input type="text" name="nickName" required />
+    <input type="text" name="nickName" value="<%= users.nickName %>" />
+  
     <h3>Email:</h3>
-    <input type="text" name="email" required />
-    <button type="submit">Submit</button> 
+    <input type="email" name="email" value="<%= users.email %>" />
+  
+    <button type="submit">Update</button>
   </form>
-</div>
 
 <style>
   h1 {
     text-align: left;
   }
   .backContainer {
-    margin-left: 90%;
+    margin-left: 70%;
     background-color: grey;
     color: black;
     padding: 0.5rem 1.5rem;
@@ -45,24 +50,24 @@
     width: 60px;
     font-size: 1.4rem;
   }
-  .addUser-container {
+  .editUser-container {
     margin-top: 20px;
     margin-left: 100px;
     background: #fff;
     padding: 2rem;
     border-radius: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 80%;
+    width: 60%;
     text-align: center;
   }
 
-  .addUser-container h1 {
+  .editUser-container h1 {
     margin-bottom: 1.5rem;
     font-size: 2rem;
     color: #333;
   }
 
-  .addUser-container input {
+  .editUser-container input {
     width: 100%;
     padding: 0.75rem;
     margin: 0.5rem 0;
@@ -71,12 +76,12 @@
     font-size: 1rem;
   }
 
-  .addUser-container input:focus {
+  .editUser-container input:focus {
     outline: none;
     border-color: #6a11cb;
   }
 
-  .addUser-container button {
+  .editUser-container button {
     margin-left: auto;
     background: #6a11cb;
     color: #fff;
@@ -88,25 +93,25 @@
     transition: background 0.3s;
   }
 
-  .addUser-container button:hover {
+  .editUser-container button:hover {
     background: #2575fc;
   }
 
   @media (max-width: 600px) {
-    .addUser-container {
+    .editUser-container {
       padding: 1.5rem;
     }
 
-    .addUser-container h1 {
+    .editUser-container h1 {
       font-size: 1.5rem;
     }
 
-    .addUser-container input {
+    .editUser-container input {
       padding: 0.5rem;
       font-size: 0.9rem;
     }
 
-    .addUser-container button {
+    .editUser-container button {
       padding: 0.5rem 1rem;
       font-size: 0.9rem;
     }
