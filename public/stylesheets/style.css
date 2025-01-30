@@ -209,6 +209,7 @@ table {
 }
 th,
 td {
+  font-size: 14px;
   padding: 10px;
   text-align: center;
   border: 1px solid #ddd;
@@ -275,12 +276,13 @@ button.delete-btn {
 @media screen and (max-width: 768px) {
   table {
     width: 100%;
-    font-size: 14px;
+    font-size: 10px;
   }
 
   th,
   td {
     padding: 10px;
+    font-size:8px
   }
 
   img {
@@ -340,6 +342,7 @@ audio {
 }
 
 button {
+  font-size: 13px;
   padding: 8px 12px;
   border: none;
   border-radius: 4px;

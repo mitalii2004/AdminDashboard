@@ -1,0 +1,123 @@
+<%- include("../layout/header.ejs");%>
+
+<div class="addContact-container">
+  <h1><center>Add Contact</center></h1>
+  <div class="backContainer">
+    <a
+      href="#"
+      onclick="window.location.href=document.referrer;"
+      class="backbutton"
+      >Back</a
+    >
+  </div>
+
+  <form action="/createContact" method="POST" enctype="multipart/form-data">
+    <h3>Name:</h3>
+    <input type="text" name="name" required />
+    <h3>Nick Name:</h3>
+    <input type="text" name="nickName" required />
+    <h3>Email:</h3>
+    <input type="text" name="email" required />
+    <h3>Message:</h3>
+    <input type="text" name="message" required />
+    <h3>Date:</h3>
+    <input type="text" name="date" required />
+    
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<style>
+  h1 {
+    text-align: left;
+  }
+  .backContainer {
+    margin-left: 90%;
+    background-color: grey;
+    color: black;
+    padding: 0.5rem 1.5rem;
+    text-decoration: none;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  .backbutton {
+    color: white;
+    text-decoration: none;
+    width: 60px;
+    font-size: 1.4rem;
+  }
+  .addContact-container {
+    margin-top: 20px;
+    margin-left: 100px;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    text-align: center;
+  }
+
+  .addContact-container h1 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #333;
+  }
+
+  .addContact-container input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 1rem;
+  }
+
+  .addContact-container input:focus {
+    outline: none;
+    border-color: #6a11cb;
+  }
+
+  .addContact-container button {
+    margin-left: auto;
+    background: #6a11cb;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 4.5rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .addContact-container button:hover {
+    background: #2575fc;
+  }
+
+  @media (max-width: 600px) {
+    .addContact-container {
+      padding: 1.5rem;
+    }
+
+    .addContact-container h1 {
+      font-size: 1.5rem;
+    }
+
+    .addContact-container input {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .addContact-container button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  h3 {
+    text-align: left;
+  }
+</style>
+
+<%- include("../layout/footer.ejs");%>

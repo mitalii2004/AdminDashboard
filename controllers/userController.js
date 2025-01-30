@@ -28,7 +28,7 @@ module.exports = {
         }
     },
 
-    users: async (req, res) => {
+    user: async (req, res) => {
         try {
             const title = "Users";
             const userData = await Models.userModel.findAll();
@@ -42,7 +42,7 @@ module.exports = {
     addUser: async (req, res) => {
         try {
             const title = "Users";
-            res.render("users/addUserListings", { title });
+            res.render("user/addUserListings", { title });
         } catch (error) {
             throw error;
         }
@@ -67,10 +67,10 @@ module.exports = {
 
             await Models.userModel.create(objToSave);
 
-            res.redirect("/users");
+            res.redirect("/user");
         } catch (error) {
             console.error("Error adding music:", error);
-            res.redirect("/users");
+            res.redirect("/user");
         }
     },
 
@@ -87,7 +87,7 @@ module.exports = {
 
             console.log(user, "useruser")
 
-            res.render("users/editUserListings", { title, users: user });
+            res.render("user/editUserListings", { title, users: user });
         } catch (error) {
             console.error(error);
             res.status(500).send("Internal Server Error");
@@ -124,7 +124,7 @@ module.exports = {
 
             console.log(updatedUser, "updatedUserupdatedUser");
 
-            res.redirect("/users");
+            res.redirect("/user");
         } catch (error) {
             console.error(error);
             res.status(500).send("Error updating user");
@@ -415,27 +415,348 @@ module.exports = {
     contactUs: async (req, res) => {
         try {
             const title = "ContactUs";
-            res.render("contactUs/contactUsListings", { title });
+            const contactData = await Models.contactUsModel.findAll();
+            res.render("contactUs/contactUsListings", { title, contactData });
+        } catch (error) {
+            console.error("Error fetching contact data:", error);
+            res.render("contactUs/contactUsListings", { title: "ContactUs", contactData: [] });
+        }
+    },
+
+    addContact: async (req, res) => {
+        try {
+            const title = "ContactUs";
+            res.render("contactUs/addContactUsListings", { title });
         } catch (error) {
             throw error;
+        }
+    },
+
+    createContact: async (req, res) => {
+        try {
+            const { name, nickName, email, message, date } = req.body;
+
+            const objToSave = {
+                name,
+                nickName,
+                email,
+                message,
+                date
+            };
+
+            await Models.contactUsModel.create(objToSave);
+
+            res.redirect("/contactUs");
+        } catch (error) {
+            console.error("Error adding contact:", error);
+            res.redirect("/contactUs");
+        }
+    },
+
+    editContact: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const title = "ContactUs";
+
+            const contact = await Models.contactUsModel.findOne({
+                where: {
+                    id: id
+                }
+            })
+
+            console.log(contact, "contactcontact")
+
+            res.render("contactUs/editContactUsListings", { title, contact });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+
+    updateContact: async (req, res) => {
+        try {
+            console.log("rewqbdiy", req.body);
+            //  return
+            const userId = req.params.id;
+
+            if (!userId) {
+                return res.status(400).send("User ID is required");
+            }
+
+            const user = await Models.contactUsModel.findOne({ where: { id: userId } });
+            if (!user) {
+                return res.status(404).send("User not found");
+            }
+
+
+            const updatedContact = await Models.contactUsModel.update(
+                {
+                    name: req.body.name,
+                    nickName: req.body.nickName,
+                    email: req.body.email,
+                    message: req.body.message,
+                    date: req.body.date,
+                },
+                { where: { id: userId } }
+            );
+
+            console.log(updatedContact, "updatedContactupdatedContact");
+
+            res.redirect("/contactUs");
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Error updating contact");
+        }
+    },
+
+    deleteContact: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                return res.status(400).json({ error: "Challenge ID is required." });
+            }
+            const deletedContact = await Models.contactUsModel.destroy({
+                where: { id },
+            });
+
+            if (!deletedContact) {
+                return res.status(404).json({ error: "contact not found." });
+            }
+
+            return res.status(200).json({ status: 200, message: "contact deleted successfully." });
+        } catch (error) {
+            throw error
         }
     },
 
     faq: async (req, res) => {
         try {
             const title = "FAQ";
-            res.render("faq/faqListings", { title });
+            const faqData = await Models.faqModel.findAll();
+            res.render("faq/faqListings", { title, faqData });
         } catch (error) {
             throw error;
         }
     },
 
-    banners: async (req, res) => {
+    addfaq: async (req, res) => {
         try {
-            const title = "Banners";
-            res.render("banners/bannerListings", { title });
+            const title = "FAQ";
+            res.render("faq/addFaqListings", { title });
         } catch (error) {
             throw error;
+        }
+    },
+
+    createFaq: async (req, res) => {
+        try {
+            const { question, answer, } = req.body;
+
+            const objToSave = {
+                question,
+                answer,
+
+            };
+
+            await Models.faqModel.create(objToSave);
+
+            res.redirect("/faq");
+        } catch (error) {
+            console.error("Error adding faq:", error);
+            res.redirect("/faq");
+        }
+    },
+
+    editFaq: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const title = "FAQ";
+
+            const faq = await Models.faqModel.findOne({
+                where: {
+                    id: id
+                }
+            })
+
+            console.log(faq, "faqfaq")
+
+            res.render("faq/editFaqListings", { title, faq });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+
+    updateFaq: async (req, res) => {
+        try {
+            console.log("rewqbdiy", req.body);
+            //  return
+            const userId = req.params.id;
+
+            if (!userId) {
+                return res.status(400).send("User ID is required");
+            }
+
+            const user = await Models.faqModel.findOne({ where: { id: userId } });
+            if (!user) {
+                return res.status(404).send("User not found");
+            }
+
+
+            const updatedFaq = await Models.faqModel.update(
+                {
+                    question: req.body.question,
+                    answer: req.body.answer,
+
+                },
+                { where: { id: userId } }
+            );
+
+            console.log(updatedFaq, "updatedFaqupdatedFaq");
+
+            res.redirect("/faq");
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Error updating faq");
+        }
+    },
+
+    deleteFaq: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                return res.status(400).json({ error: "Faq ID is required." });
+            }
+            const deletedFaq = await Models.faqModel.destroy({
+                where: { id },
+            });
+
+            if (!deletedFaq) {
+                return res.status(404).json({ error: "faq not found." });
+            }
+
+            return res.status(200).json({ status: 200, message: "faq deleted successfully." });
+        } catch (error) {
+            throw error
+        }
+    },
+
+    banner: async (req, res) => {
+        try {
+            const title = "Banners";
+            const bannerData = await Models.bannerModel.findAll();
+            res.render("banners/bannerListings", { title, bannerData });
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    addBanner: async (req, res) => {
+        try {
+            const title = "Banners";
+            res.render("banners/addBannerListings", { title });
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    createBanner: async (req, res) => {
+        try {
+            const bannerFile = req.files?.image;
+            var bannerFilePath
+            if (req.files && req.files.image) {
+                bannerFilePath = await helper.bannerImageUpload(bannerFile, "Banners");
+            }
+
+            const objToSave = {
+                bannerImage: bannerFilePath,
+
+            };
+
+            await Models.bannerModel.create(objToSave);
+
+            res.redirect("/banners");
+        } catch (error) {
+            console.error("Error adding banner:", error);
+            res.redirect("/banners");
+        }
+    },
+
+    editBanner: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const title = "Banners";
+
+            const banner = await Models.bannerModel.findOne({
+                where: {
+                    id: id
+                }
+            })
+
+            console.log(banner, "bannerbanner")
+
+            res.render("banners/editBannerListings", { title, banner: banner });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+
+    updateBanner: async (req, res) => {
+        try {
+            console.log(req.params, "bannerIdbannerIdbannerId")
+            // return
+            const bannerId = req.params.id;
+            if (!bannerId) {
+                return res.status(400).send("Banner ID is required");
+            }
+
+            const user = await Models.bannerModel.findOne({ where: { id: bannerId } });
+            if (!user) {
+                return res.status(404).send("User not found");
+            }
+
+            if (req.files && req.files.image) {
+                const bannerFile = req.files.image;
+                bannerFilePath = await helper.bannerImageUpload(bannerFile, "Banners");
+            }
+
+            const updatedBanner = await Models.bannerModel.update(
+                {
+                    bannerImage: bannerFilePath,
+                },
+                { where: { id: bannerId } }
+            );
+
+            console.log(updatedBanner, "updatedBannerupdatedBanner");
+
+            res.redirect("/banners");
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("Error updating banner");
+        }
+    },
+
+    deleteBanner: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                return res.status(400).json({ error: "User ID is required." });
+            }
+            const deletedBanner = await Models.bannerModel.destroy({
+                where: { id },
+            });
+
+            if (!deletedBanner) {
+                return res.status(404).json({ error: "User not found." });
+            }
+
+            return res.status(200).json({ status: 200, message: "banner deleted successfully." });
+        } catch (error) {
+            throw error
         }
     },
 

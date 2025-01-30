@@ -61,4 +61,27 @@ module.exports = {
         }
     },
     
+    bannerImageUpload: async (file, folder = "Banners") => {
+        try {
+            if (!file || !file.name) return null;
+
+            const fileExtension = file.name.split(".").pop().toLowerCase();
+          
+            const name = `${uuid()}.${fileExtension}`;
+            const filePath = path.join(__dirname, "..", "public", folder, name);
+
+            const dirPath = path.dirname(filePath);
+            if (!fs.existsSync(dirPath)) {
+                fs.mkdirSync(dirPath, { recursive: true });
+            }
+
+            await file.mv(filePath);
+
+            return `/${folder}/${name}`;
+        } catch (error) {
+            console.error("Error during file upload:", error);
+            return null;
+        }
+    },
+
 };

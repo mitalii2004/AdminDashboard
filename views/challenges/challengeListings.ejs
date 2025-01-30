@@ -19,23 +19,29 @@
   }
 
   .challengeContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 1rem;
   }
-  .add-challenge {
-    background-color: cadetblue;
-    color: white;
-    padding: 0.8rem 1.5rem;
-    text-decoration: none;
-    border-radius: 5px;
-    display: inline-block;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
+
   .search-container {
     display: flex;
     align-items: center;
     gap: 10px;
   }
+
+  .add-challenge {
+    margin-right: 5%;
+    background-color: cadetblue;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+  
 </style>
 
 <div class="challengeContainer">
@@ -48,7 +54,7 @@
       aria-controls="myTable"
     />
   </div>
-  <a href="/addChallenges" class="add-challenge">+ Add Challenge</a>
+  <a href="/addchallenges" class="add-challenge">+ Add Challenge</a>
 </div>
 
 <table>

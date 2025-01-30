@@ -1,7 +1,7 @@
 <%- include("../layout/header.ejs");%>
 
-<div class="editContact-container">
-  <h1><center>Edit Contact</center></h1>
+<div class="editBanner-container">
+  <h1><center>Edit Banner</center></h1>
   <div class="backContainer">
     <a
       href="#"
@@ -11,24 +11,27 @@
     >
   </div>
 
-  <form action="/updateContact/<%= contact.id %>" method="post">
+  <form
+    action="/updateBanner/<%= banner.id %>"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <input type="hidden" name="id" value="<%= banner.id %>" />
 
-    <input type="hidden" name="id" value="<%= contact.id %>" />
-    
-    <h3>Name:</h3>
-    <input type="text" name="name" value="<%= contact.name %>" />
+    <img
+      id="image"
+      src="<%= banner.bannerImage %>"
+      width="100"
+      style="cursor: pointer; border-radius: 10px"
+    />
 
-    <h3>Nick Name:</h3>
-    <input type="text" name="nickName" value="<%= contact.nickName %>" />
-
-    <h3>Email:</h3>
-    <input type="text" name="email" value="<%= contact.email %>" />
-
-    <h3>Message:</h3>
-    <input type="text" name="message" value="<%= contact.message %>" />
-
-    <h3>Date:</h3>
-    <input type="text" name="date" value="<%= contact.date %>" />
+    <input
+      type="file"
+      name="image"
+      id="imageUpload"
+      accept="image/*"
+      style="display: none"
+    />
 
     <button type="submit">Update</button>
   </form>
@@ -54,7 +57,7 @@
       width: 60px;
       font-size: 1.4rem;
     }
-    .editContact-container {
+    .editBanner-container {
       margin-top: 20px;
       margin-left: 100px;
       background: #fff;
@@ -65,13 +68,13 @@
       text-align: center;
     }
 
-    .editContact-container h1 {
+    .editBanner-container h1 {
       margin-bottom: 1.5rem;
       font-size: 2rem;
       color: #333;
     }
 
-    .editContact-container input {
+    .editBanner-container input {
       width: 100%;
       padding: 0.75rem;
       margin: 0.5rem 0;
@@ -80,12 +83,12 @@
       font-size: 1rem;
     }
 
-    .editContact-container input:focus {
+    .editBanner-container input:focus {
       outline: none;
       border-color: #6a11cb;
     }
 
-    .editContact-container button {
+    .editBanner-container button {
       margin-left: auto;
       background: #6a11cb;
       color: #fff;
@@ -97,25 +100,25 @@
       transition: background 0.3s;
     }
 
-    .editContact-container button:hover {
+    .editBanner-container button:hover {
       background: #2575fc;
     }
 
     @media (max-width: 600px) {
-      .editContact-container {
+      .editBanner-container {
         padding: 1.5rem;
       }
 
-      .editContact-container h1 {
+      .editBanner-container h1 {
         font-size: 1.5rem;
       }
 
-      .editContact-container input {
+      .editBanner-container input {
         padding: 0.5rem;
         font-size: 0.9rem;
       }
 
-      .editContact-container button {
+      .editBanner-container button {
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
       }
@@ -125,6 +128,25 @@
       text-align: left;
     }
   </style>
+
+  <script>
+    document.getElementById("image").addEventListener("click", function () {
+      document.getElementById("imageUpload").click();
+    });
+
+    document
+      .getElementById("imageUpload")
+      .addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("image").src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+  </script>
 
   <%- include("../layout/footer.ejs");%>
 </div>

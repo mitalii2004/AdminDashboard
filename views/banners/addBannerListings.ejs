@@ -1,7 +1,7 @@
 <%- include("../layout/header.ejs");%>
 
-<div class="addFaq-container">
-  <h1><center>Add FAQ</center></h1>
+<div class="addBanner-container">
+  <h1><center>Add Banner</center></h1>
   <div class="backContainer">
     <a
       href="#"
@@ -11,14 +11,23 @@
     >
   </div>
 
-  <form action="/createFaq" method="POST" enctype="multipart/form-data">
+  <form action="/createBanner" method="POST" enctype="multipart/form-data">
+    <img
+      id="previewImage"
+      src="/images/default.png"
+      alt="Banner Image"
+      style="width: 100px; height: 100px; cursor: pointer; border-radius: 10px"
+    />
 
-    <h3>Question:</h3>
-    <input type="text" name="question" required />
+    <input
+      type="file"
+      name="image"
+      id="imageUpload"
+      accept="image/*"
+      style="display: none"
+      required
+    />
 
-    <h3>Answer:</h3>
-    <input type="text" name="answer" required />
-    
     <button type="submit">Submit</button>
   </form>
 </div>
@@ -44,7 +53,7 @@
     width: 60px;
     font-size: 1.4rem;
   }
-  .addFaq-container {
+  .addBanner-container {
     margin-top: 20px;
     margin-left: 100px;
     background: #fff;
@@ -55,13 +64,13 @@
     text-align: center;
   }
 
-  .addFaq-container h1 {
+  .addBanner-container h1 {
     margin-bottom: 1.5rem;
     font-size: 2rem;
     color: #333;
   }
 
-  .addFaq-container input {
+  .addBanner-container input {
     width: 100%;
     padding: 0.75rem;
     margin: 0.5rem 0;
@@ -70,12 +79,12 @@
     font-size: 1rem;
   }
 
-  .addFaq-container input:focus {
+  .addBanner-container input:focus {
     outline: none;
     border-color: #6a11cb;
   }
 
-  .addFaq-container button {
+  .addBanner-container button {
     margin-left: auto;
     background: #6a11cb;
     color: #fff;
@@ -87,25 +96,25 @@
     transition: background 0.3s;
   }
 
-  .addFaq-container button:hover {
+  .addBanner-container button:hover {
     background: #2575fc;
   }
 
   @media (max-width: 600px) {
-    .addFaq-container {
+    .addBanner-container {
       padding: 1.5rem;
     }
 
-    .addFaq-container h1 {
+    .addBanner-container h1 {
       font-size: 1.5rem;
     }
 
-    .addFaq-container input {
+    .addBanner-container input {
       padding: 0.5rem;
       font-size: 0.9rem;
     }
 
-    .addFaq-container button {
+    .addBanner-container button {
       padding: 0.5rem 1rem;
       font-size: 0.9rem;
     }
@@ -115,5 +124,26 @@
     text-align: left;
   }
 </style>
+
+<script>
+  document
+    .getElementById("previewImage")
+    .addEventListener("click", function () {
+      document.getElementById("imageUpload").click(); // Open file select dialog
+    });
+
+  document
+    .getElementById("imageUpload")
+    .addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("previewImage").src = e.target.result; // Update preview image
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+</script>
 
 <%- include("../layout/footer.ejs");%>

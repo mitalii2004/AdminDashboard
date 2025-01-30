@@ -1,0 +1,120 @@
+<%- include("../layout/header.ejs");%>
+
+<div class="editFaq-container">
+  <h1><center>Edit FAQ</center></h1>
+  <div class="backContainer">
+    <a
+      href="#"
+      onclick="window.location.href=document.referrer;"
+      class="backbutton"
+      >Back</a
+    >
+  </div>
+
+  <form action="/updateFaq/<%= faq.id %>" method="post">
+    <input type="hidden" name="id" value="<%= faq.id %>" />
+
+    <h3>Question:</h3>
+    <input type="text" name="question" value="<%= faq.question %>" />
+
+    <h3>Answer:</h3>
+    <textarea name="answer" style="padding-left: 5% ;width: 80%;" rows="5" cols="50"><%= faq.answer %></textarea>
+
+    <button type="submit">Update</button>
+  </form>
+
+  <style>
+    h1 {
+      text-align: left;
+    }
+    .backContainer {
+      margin-left: 70%;
+      background-color: grey;
+      color: black;
+      padding: 0.5rem 1.5rem;
+      text-decoration: none;
+      border-radius: 20px;
+      display: inline-block;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .backbutton {
+      color: white;
+      text-decoration: none;
+      width: 60px;
+      font-size: 1.4rem;
+    }
+    .editFaq-container {
+      margin-top: 20px;
+      margin-left: 100px;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 40px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 60%;
+      text-align: center;
+    }
+
+    .editFaq-container h1 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .editFaq-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 1rem;
+    }
+
+    .editFaq-container input:focus {
+      outline: none;
+      border-color: #6a11cb;
+    }
+
+    .editFaq-container button {
+      margin-left: auto;
+      background: #6a11cb;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 4.5rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .editFaq-container button:hover {
+      background: #2575fc;
+    }
+
+    @media (max-width: 600px) {
+      .editFaq-container {
+        padding: 1.5rem;
+      }
+
+      .editFaq-container h1 {
+        font-size: 1.5rem;
+      }
+
+      .editFaq-container input {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .editFaq-container button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    h3 {
+      text-align: left;
+    }
+  </style>
+
+  <%- include("../layout/footer.ejs");%>
+</div>

@@ -1,17 +1,62 @@
-<%- include("../layout/header.ejs");%>
+<%- include("../layout/header.ejs"); %>
 
-<div class="search-container">
-  <label for="search">Search:</label>
-  <input
-    id="search"
-    type="search"
-    placeholder="Type to search..."
-    aria-controls="myTable"
-  />
+<style>
+  .action-buttons {
+    display: flex;
+    align-items: center;
+  }
 
+  .action-buttons button {
+    background-color: darkorange;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .action-buttons i {
+    font-size: 1rem;
+  }
+
+  .contactContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .add-contact {
+    margin-right: 5%;
+    background-color: cadetblue;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+</style>
+
+
+<div class="contactContainer">
+  <div class="search-container">
+    <label for="search">Search:</label>
+    <input
+      id="search"
+      type="search"
+      placeholder="Type to search..."
+      aria-controls="myTable"
+    />
+  </div>
+  <a href="/addContact" class="add-contact">+ Add Contact</a>
 </div>
-<br />
-<br />
+
 <table>
   <tr>
     <th>S No.</th>
@@ -22,50 +67,58 @@
     <th>Date</th>
     <th>Action</th>
   </tr>
-  <tr>
-    <td>1.</td>
-    <td>Mitali Goura</td>
-    <td>Mitali</td>
-    <td>mitali@gmail.com</td>
-    <td>This is test message aditya for testing purpose</td>
-    <td>January 23,2025</td>
-    <td>
-      <button class="delete-btn"><i class="fas fa-trash"></i></button>
-    </td>
-  </tr>
-  <tr>
-    <td>2.</td>
-    <td>Lalit Mehra</td>
-    <td>Lalit</td>
-    <td>lalit@gmail.com</td>
-    <td>This is test message aditya for testing purpose</td>
-    <td>January 23,2025</td>
-    <td>
-      <button class="delete-btn"><i class="fas fa-trash"></i></button>
-    </td>
-  </tr>
-  <tr>
-    <td>3.</td>
-    <td>Anaya Sharma</td>
-    <td>Anaya</td>
-    <td>anaya@gmail.com</td>
-    <td>This is test message aditya for testing purpose</td>
-    <td>January 23,2025</td>
-    <td>
-      <button class="delete-btn"><i class="fas fa-trash"></i></button>
-    </td>
-  </tr>
-  <tr>
-    <td>4.</td>
-    <td>kunal Verma</td>
-    <td>Kunal</td>
-    <td>kunal@gmail.com</td>
-    <td>This is test message aditya for testing purpose</td>
-    <td>January 23,2025</td>
-    <td>
-      <button class="delete-btn"><i class="fas fa-trash"></i></button>
-    </td>
-  </tr>
-</table>
 
-<%- include("../layout/footer.ejs");%>
+  <% contactData.forEach((contact, index) => { %>
+  <tr>
+    <td><%= index + 1 %></td>
+    <td><%= contact.name %></td>
+    <td><%= contact.nickName %></td>
+    <td><%= contact.email %></td>
+    <td><%= contact.message %></td>
+    <td><%= contact.date %></td>
+
+    <td>
+      <div class="action-buttons">
+        <a href="/editContact/<%= contact.id %>">
+          <i class="fas fa-edit"></i>
+        </a>
+        <button class="delete-btn" id="<%= contact.id %>">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </td>
+  </tr>
+  <% }); %>
+</table>
+<script
+  src="https://code.jquery.com/jquery-3.6.3.min.js"
+  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+  crossorigin="anonymous"
+></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".delete-btn").forEach((button) => {
+      button.addEventListener("click", function () {
+        if (confirm("Are you sure you want to delete this item?")) {
+          const row = this.closest("tr");
+          if (row) {
+            $.ajax({
+              url: `/deleteContact/${button.id}`,
+              type: "delete",
+              success: function (result) {
+                if (result.status == 200) {
+                  window.location.reload();
+                }
+              },
+            });
+          } else {
+            console.error("No row found to delete.");
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<%- include("../layout/footer.ejs"); %>
