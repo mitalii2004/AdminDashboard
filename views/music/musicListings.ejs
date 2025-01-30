@@ -76,16 +76,6 @@
         Your browser does not support the audio element.
       </audio>
     </td>
-    <!-- <td>
-      <form action="/editMusic" method="get" id="<%= music.edit%>">
-        <button class="edit-btn">
-          <i class="fas fa-edit"></i>
-        </button>
-      </form>
-      <button class="delete-btn" id="<%=music.id%>">
-        <i class="fas fa-trash"></i>
-      </button>
-    </td> -->
     <td>
       <div class="action-buttons">
         <a href="/editMusic/<%= music.id %>">
@@ -112,7 +102,6 @@
         if (confirm("Are you sure you want to delete this item?")) {
           const row = this.closest("tr");
           if (row) {
-            // row.remove();
             $.ajax({
               url: `/deleteMusic/${button.id}`,
               type: "delete",

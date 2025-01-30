@@ -1,7 +1,7 @@
 <%- include("../layout/header.ejs");%>
 
 <div class="addUser-container">
-  <h1>Add User</h1>
+  <h1><center>Add User</center></h1>
   <div class="backContainer">
     <a
       href="#"
@@ -13,7 +13,6 @@
 
   <form action="/createUser" method="POST" enctype="multipart/form-data">
 
-<!-- Default image preview -->
 <img 
   id="previewImage"
   src="/images/default.png"
@@ -21,7 +20,6 @@
   style="width: 100px; height: 100px; cursor: pointer; border-radius: 10px;"
 />
 
-<!-- Hidden file input -->
 <input
   type="file"
   name="image"

@@ -1,0 +1,121 @@
+<%- include("../layout/header.ejs");%>
+
+<div class="editChallenge-container">
+  <h1><center>Edit Challenge</center></h1>
+  <div class="backContainer">
+    <a
+      href="#"
+      onclick="window.location.href=document.referrer;"
+      class="backbutton"
+      >Back</a
+    >
+  </div>
+
+  <form action="/updateChallenge/<%= challenge.id %>" method="post">
+
+    <input type="hidden" name="id" value="<%= challenge.id %>" />
+    
+    <h3>Title:</h3>
+    <input type="text" name="title" value="<%= challenge.title %>" />
+
+    <h3>Description:</h3>
+    <input type="text" name="description" value="<%= challenge.description %>" />
+
+    <button type="submit">Update</button>
+  </form>
+
+  <style>
+    h1 {
+      text-align: left;
+    }
+    .backContainer {
+      margin-left: 70%;
+      background-color: grey;
+      color: black;
+      padding: 0.5rem 1.5rem;
+      text-decoration: none;
+      border-radius: 20px;
+      display: inline-block;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .backbutton {
+      color: white;
+      text-decoration: none;
+      width: 60px;
+      font-size: 1.4rem;
+    }
+    .editChallenge-container {
+      margin-top: 20px;
+      margin-left: 100px;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 40px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 60%;
+      text-align: center;
+    }
+
+    .editChallenge-container h1 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .editChallenge-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 1rem;
+    }
+
+    .editChallenge-container input:focus {
+      outline: none;
+      border-color: #6a11cb;
+    }
+
+    .editChallenge-container button {
+      margin-left: auto;
+      background: #6a11cb;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 4.5rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .editChallenge-container button:hover {
+      background: #2575fc;
+    }
+
+    @media (max-width: 600px) {
+      .editChallenge-container {
+        padding: 1.5rem;
+      }
+
+      .editChallenge-container h1 {
+        font-size: 1.5rem;
+      }
+
+      .editChallenge-container input {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .editChallenge-container button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    h3 {
+      text-align: left;
+    }
+  </style>
+
+  <%- include("../layout/footer.ejs");%>
+</div>
