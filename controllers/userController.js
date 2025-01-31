@@ -32,10 +32,10 @@ module.exports = {
         try {
             const title = "Users";
             const userData = await Models.userModel.findAll();
-            res.render("users/userListings", { title, userData });
+            res.render("user/userListings", { title, userData });
         } catch (error) {
             console.error("Error fetching user data:", error);
-            res.render("users/userListings", { title: "Users", userData: [] });
+            res.render("user/userListings", { title: "Users", userData: [] });
         }
     },
 
@@ -763,12 +763,48 @@ module.exports = {
     termsConditions: async (req, res) => {
         try {
             const title = "TermsConditions";
-            res.render("termsConditions/termConditionListings", { title });
+            const termsData = await Models.termsConditionsModel.findAll();
+            res.render("termsConditions/termConditionListings", { title, termsData });
         } catch (error) {
             throw error;
         }
     },
 
+    // updateTerms: async (req, res) => {
+    //     try {
+    //         const { description, } = req.body;
+
+
+
+    //         await Models.termsConditionsModel.update({
+    //             where { type: 1 }
+    //         });
+
+    //     res.redirect("/termsConditions");
+    // } catch(error) {
+    //     throw error
+    // }
+    //},
+    updateTerms : async (req, res) => {
+        try {
+            const { id, content } = req.body;
+    
+    
+            const updated = await termsConditionsModition.update(
+                { description: content },
+                { where: { type:1 } }
+            );
+    
+            if (updated[0] === 0) {
+                return res.status(404).json({ error: "No terms found with this ID" });
+            }
+    
+            res.redirect("/termsConditions"); 
+        } catch (error) {
+            throw error
+        }
+    },
+    
     privacyPolicy: async (req, res) => {
         try {
             const title = "PrivacyPolicy";

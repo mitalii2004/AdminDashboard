@@ -256,7 +256,7 @@ button:hover {
 }
 
 button[onclick="changeStatus(this)"] {
-  background-color: #f44336;
+  background-color: red;
   color: white;
 }
 
@@ -264,14 +264,6 @@ button[onclick="changeStatus(this)"].active {
   background-color: #4caf50;
 }
 
-button.delete-btn {
-  background-color: #ff5722;
-  color: white;
-}
-
-.delete-btn i {
-  font-size: 14px;
-}
 
 @media screen and (max-width: 768px) {
   table {

@@ -48,6 +48,7 @@ router.post("/updateBanner/:id", controller.updateBanner);
 router.delete("/deleteBanner/:id", controller.deleteBanner);
 
 router.get("/termsConditions", controller.termsConditions);
+router.post("/updateTerms", controller.updateTerms);
 
 router.get("/privacyPolicy", controller.privacyPolicy);
 
