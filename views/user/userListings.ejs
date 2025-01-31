@@ -87,24 +87,14 @@
     <td><%= users.nickName %></td>
     <td><%= users.email %></td>
     <td><button onclick="changeStatus(this)">In-Active</button></td>
-    <!-- <td>
-      <div class="action-buttons">
-        <a href="/editUser/<%= users.id %>">
-            <i class="fas fa-edit"></i>
-          </a>
-        <button class="delete-btn" id="<%= users.id %>">
-          <i class="fas fa-trash"></i>
-        </button>
-      </div>
-    </td> -->
     <td>
       <div class="action-buttons">
         <a href="/editUser/<%= users.id %>">
           <i class="fas fa-edit"></i>
         </a>
-        <button class="view-btn" data-id="<%= users.id %>" data-name="<%= users.name %>" data-nickName="<%= users.nickName %>" data-email="<%= users.email %>" data-image="<%= users.image %>">
+        <a href="/viewUser" style="text-decoration: none;"><button class="view-btn" id="<%= users.id %>">
           <i class="fas fa-eye"></i>
-        </button>
+        </button></a>
         <button class="delete-btn" id="<%= users.id %>">
           <i class="fas fa-trash"></i>
         </button>

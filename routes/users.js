@@ -10,6 +10,7 @@ router.get("/addUser", controller.addUser)
 router.post("/createUser", controller.createUser);
 router.get("/editUser/:id", controller.editUser);
 router.post("/updateUser/:id", controller.updateUser);
+// router.get('/viewUser/:id', controller.viewUser); 
 router.delete("/deleteUser/:id", controller.deleteUser)
 
 router.get("/music", controller.music);

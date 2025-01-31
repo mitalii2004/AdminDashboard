@@ -131,6 +131,36 @@ module.exports = {
         }
     },
 
+    // viewUser: async (req, res) => {
+    //     try {
+    //         const title = "Users";
+    //         console.log('Query Params:', req.query); 
+    
+    //         const { id } = req.params;
+    
+    //         if (!id) {
+    //             return res.status(400).send('ID is required');
+    //         }
+    
+    //         console.log("Received ID: ", id);
+    
+    //         const user = await Models.userModel.findOne({
+    //             where: {
+    //                 id: id
+    //             }
+    //         });
+    
+    //         if (!user) {
+    //             return res.status(404).send('User not found');
+    //         }
+    
+    //         res.render("user/viewUserListings", { title, user });
+    //     } catch (error) {
+    //         console.error("Error:", error);
+    //         throw error;
+    //     }
+    // },
+    
     deleteUser: async (req, res) => {
         try {
             const { id } = req.params;
@@ -786,26 +816,26 @@ module.exports = {
     // }
     //},
 
-    updateTerms : async (req, res) => {
+    updateTerms: async (req, res) => {
         try {
             const { id, content } = req.body;
-    
-    
+
+
             const updated = await termsConditionsModition.update(
                 { description: content },
-                { where: { type:1 } }
+                { where: { type: 1 } }
             );
-    
+
             if (updated[0] === 0) {
                 return res.status(404).json({ error: "No terms found with this ID" });
             }
-    
-            res.redirect("/termsConditions"); 
+
+            res.redirect("/termsConditions");
         } catch (error) {
             throw error
         }
     },
-    
+
     privacyPolicy: async (req, res) => {
         try {
             const title = "PrivacyPolicy";
