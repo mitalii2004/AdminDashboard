@@ -785,6 +785,7 @@ module.exports = {
     //     throw error
     // }
     //},
+
     updateTerms : async (req, res) => {
         try {
             const { id, content } = req.body;
@@ -808,7 +809,8 @@ module.exports = {
     privacyPolicy: async (req, res) => {
         try {
             const title = "PrivacyPolicy";
-            res.render("privacyPolicy/privacyPolicyListings", { title });
+            const privacyData = await Models.privacyPolicyModel.findAll();
+            res.render("privacyPolicy/privacyPolicyListings", { title, privacyData });
         } catch (error) {
             throw error;
         }
@@ -817,7 +819,8 @@ module.exports = {
     aboutUs: async (req, res) => {
         try {
             const title = "AboutUs";
-            res.render("aboutUs/aboutUsListings", { title });
+            const aboutUsData = await Models.privacyPolicyModel.findAll();
+            res.render("aboutUs/aboutUsListings", { title, aboutUsData });
         } catch (error) {
             throw error;
         }
