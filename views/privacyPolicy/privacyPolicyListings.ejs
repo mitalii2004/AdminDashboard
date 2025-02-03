@@ -10,25 +10,27 @@
     <div class="section-body">
       <div class="card">
         <div class="card-body">
-          <form action="/createPrivacyPolicy" method="post">
+          <form method="post" action="/updatePrivacy">
             <div class="form-group">
               <label>Title</label>
               <input
                 type="text"
                 name="title"
-                value="Terms &amp; Conditions"
+                value="<%= privacyData?.title %>"
                 class="form-control"
-                disabled
+                readonly
               />
             </div>
             <div class="form-group">
               <label>Description</label>
               <textarea
                 id="content"
-                name="content"
+                name="description"
                 class="form-control"
                 required><%= privacyData?.description %></textarea>
               <input type="hidden" name="id" value="<%= privacyData?.id %>" />
+              <input type="hidden" name="type" value="2" />
+
             </div>
             <div class="d-flex justify-content-end">
               <button type="submit" class="btn btn-success">Submit</button>
@@ -40,10 +42,16 @@
   </section>
 </div>
 
-<script>
-  ClassicEditor.create(document.querySelector("#content")).catch((error) => {
-    console.error(error);
-  });
+  <script>
+  ClassicEditor.create(document.querySelector("#content"))
+    .then(editor => {
+      document.querySelector("form").addEventListener("submit", () => {
+        document.querySelector("#content").value = editor.getData();
+      });
+    })
+    .catch(error => {
+      console.error(error);
+    });
 </script>
 
 <%- include("../layout/footer.ejs"); %>

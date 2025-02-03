@@ -3,7 +3,7 @@ var router = express.Router();
 const controller = require("../controllers/userController");
 
 router.get("/", controller.logIn)
-router.get("/dashboard", controller.dashbaord);
+router.get("/dashboard", controller.dashboard);
 
 router.get("/user", controller.user);
 router.get("/addUser", controller.addUser)
@@ -52,8 +52,11 @@ router.get("/termsConditions", controller.termsConditions);
 router.post("/updateTerms", controller.updateTerms);
 
 router.get("/privacyPolicy", controller.privacyPolicy);
+router.post("/updatePrivacy", controller.updatePrivacy);
+
 
 router.get("/aboutUs", controller.aboutUs);
+router.post("/updateAbout", controller.updateAbout);
 
 router.get("/logout", controller.logout);
 

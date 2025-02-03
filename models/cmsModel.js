@@ -1,6 +1,6 @@
 module.exports = (Sequelize, sequelize, DataTypes) => {
     return sequelize.define(
-        "privacyPolicy",
+        "cmsModel",
         {
             ...require("./cors")(Sequelize, DataTypes),
             title: {
@@ -20,7 +20,7 @@ module.exports = (Sequelize, sequelize, DataTypes) => {
             },
         },
         {
-            tableName: "privacyPolicy",
+            tableName: "cmsModel",
         }
     );
 };
