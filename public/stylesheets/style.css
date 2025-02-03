@@ -392,3 +392,48 @@ button {
 .btn-success:hover {
   background-color: darkcyan;
 }
+
+#pagination-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 1rem;
+  background: #f9f9f9;
+  border-radius: 5px;
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.pagination-buttons button {
+  background-color: cadetblue;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dt-buttons {
+  margin-left: 65px;
+  display: inline-block;
+  padding-top: 5px;
+  margin-bottom: 15px;
+}
+
+.dt-buttons .dt-button {
+  padding: 5px 15px;
+  border-radius: 4px;
+  background: #282c34;
+  color: white;
+  margin-right: 5px;
+  font-weight: 400;
+  box-shadow: 0px 0px 3px #94cd33ed;
+  font-size: 14px;
+  border: none;
+}

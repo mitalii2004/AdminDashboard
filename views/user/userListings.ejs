@@ -58,9 +58,15 @@
   <a href="/addUser" class="add-user">+ Add User</a>
 </div>
 
+<br />
+<br />
 
-<br />
-<br />
+<div class="dt-buttons"><a class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="myTable" href="#"
+ style="text-decoration: none;">  
+<span>Excel</span>
+</a>
+</div>
+
 <table>
   <tr>
     <th>S. No.</th>
@@ -104,12 +110,27 @@
   </tr>
   <% }); %>
 </table>
+<div id="entries-info" style="margin-top: 10px; margin-left: 60px;">
+  Showing 1 to 10 of <%= userData.length %> entries
+</div>
 
 <script
   src="https://code.jquery.com/jquery-3.6.3.min.js"
   integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
   crossorigin="anonymous"
 ></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const totalEntries = <%= userData.length %>; 
+    const entriesPerPage = 10;
+    const showingStart = 1;
+    const showingEnd = Math.min(entriesPerPage, totalEntries);
+
+    document.getElementById("entries-info").innerText = 
+      `Showing ${showingStart} to ${showingEnd} of ${totalEntries} entries`;
+  });
+</script>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {

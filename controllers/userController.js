@@ -22,13 +22,13 @@ module.exports = {
     dashboard: async (req, res) => {
         try {
             const title = "Dashboard";
-    
+
             const userCount = await Models.userModel.count();
             const musicCount = await Models.musicModel.count();
             const challengeCount = await Models.challengeModel.count();
             const contactCount = await Models.contactUsModel.count();
             const faqCount = await Models.faqModel.count();
-    
+
             res.render("dashboard", {
                 title,
                 userCount,
@@ -51,6 +51,16 @@ module.exports = {
         } catch (error) {
             console.error("Error fetching user data:", error);
             res.render("user/userListings", { title: "Users", userData: [] });
+        }
+    },
+
+    excelForm: async (req, res) => {
+        try {
+            const title = "Users";
+            const userData = await Models.userModel.findAll();
+            res.render("user/excelFormListings", { title, userData });
+        } catch (error) {
+            throw error
         }
     },
 
@@ -150,32 +160,32 @@ module.exports = {
     //     try {
     //         const title = "Users";
     //         console.log('Query Params:', req.query); 
-    
+
     //         const { id } = req.params;
-    
+
     //         if (!id) {
     //             return res.status(400).send('ID is required');
     //         }
-    
+
     //         console.log("Received ID: ", id);
-    
+
     //         const user = await Models.userModel.findOne({
     //             where: {
     //                 id: id
     //             }
     //         });
-    
+
     //         if (!user) {
     //             return res.status(404).send('User not found');
     //         }
-    
+
     //         res.render("user/viewUserListings", { title, user });
     //     } catch (error) {
     //         console.error("Error:", error);
     //         throw error;
     //     }
     // },
-    
+
     deleteUser: async (req, res) => {
         try {
             const { id } = req.params;
@@ -808,22 +818,22 @@ module.exports = {
     termsConditions: async (req, res) => {
         try {
             const title = "TermsConditions";
-            const termsData = await Models.cmsModel.findOne({where:{type:1}});
-            console.log("teramData0",termsData)
+            const termsData = await Models.cmsModel.findOne({ where: { type: 1 } });
+            console.log("teramData0", termsData)
             res.render("termsConditions/termConditionListings", { title, termsData });
         } catch (error) {
             throw error;
         }
     },
- 
+
     updateTerms: async (req, res) => {
         try {
             const { id, description } = req.body;
 
 
             const findcms = await Models.cmsModel.findOne({
-                where:{
-                    type:3
+                where: {
+                    type: 3
                 }
             })
 
@@ -832,11 +842,11 @@ module.exports = {
                     { description: description },
                     { where: { type: 1 } }
                 );
-            }else{
+            } else {
                 await Models.cmsModel.create({
-                    title:"Terms & Conditions",
-                    description:description,
-                    type:1
+                    title: "Terms & Conditions",
+                    description: description,
+                    type: 1
                 })
             }
 
@@ -849,8 +859,8 @@ module.exports = {
     privacyPolicy: async (req, res) => {
         try {
             const title = "PrivacyPolicy";
-            const privacyData = await Models.cmsModel.findOne({where:{type:2}});
-            console.log("privacyData0",privacyData)
+            const privacyData = await Models.cmsModel.findOne({ where: { type: 2 } });
+            console.log("privacyData0", privacyData)
             res.render("privacyPolicy/privacyPolicyListings", { title, privacyData });
         } catch (error) {
             throw error;
@@ -861,11 +871,11 @@ module.exports = {
         try {
             const { id, description } = req.body;
             console.log(description);
-            
+
 
             const findcms = await Models.cmsModel.findOne({
-                where:{
-                    type:2
+                where: {
+                    type: 2
                 }
             })
 
@@ -874,11 +884,11 @@ module.exports = {
                     { description: description },
                     { where: { type: 2 } }
                 );
-            }else{
+            } else {
                 await Models.cmsModel.create({
-                    title:"Privacy Policy",
-                    description:description,
-                    type:2
+                    title: "Privacy Policy",
+                    description: description,
+                    type: 2
                 })
             }
 
@@ -891,8 +901,8 @@ module.exports = {
     aboutUs: async (req, res) => {
         try {
             const title = "AboutUs";
-            const aboutUsData = await Models.cmsModel.findOne({where:{type:3}});
-            console.log("aboutUsData0",aboutUsData)
+            const aboutUsData = await Models.cmsModel.findOne({ where: { type: 3 } });
+            console.log("aboutUsData0", aboutUsData)
             res.render("aboutUs/aboutUsListings", { title, aboutUsData });
         } catch (error) {
             throw error;
@@ -905,8 +915,8 @@ module.exports = {
 
 
             const findcms = await Models.cmsModel.findOne({
-                where:{
-                    type:3
+                where: {
+                    type: 3
                 }
             })
 
@@ -915,11 +925,11 @@ module.exports = {
                     { description: description },
                     { where: { type: 3 } }
                 );
-            }else{
+            } else {
                 await Models.cmsModel.create({
-                    title:"About Us",
-                    description:description,
-                    type:3
+                    title: "About Us",
+                    description: description,
+                    type: 3
                 })
             }
 

@@ -6,6 +6,7 @@ router.get("/", controller.logIn)
 router.get("/dashboard", controller.dashboard);
 
 router.get("/user", controller.user);
+router.get("/excelForm",controller.excelForm)
 router.get("/addUser", controller.addUser)
 router.post("/createUser", controller.createUser);
 router.get("/editUser/:id", controller.editUser);
