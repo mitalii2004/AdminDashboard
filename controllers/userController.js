@@ -54,16 +54,6 @@ module.exports = {
         }
     },
 
-    excelForm: async (req, res) => {
-        try {
-            const title = "Users";
-            const userData = await Models.userModel.findAll();
-            res.render("user/excelFormListings", { title, userData });
-        } catch (error) {
-            throw error
-        }
-    },
-
     addUser: async (req, res) => {
         try {
             const title = "Users";
@@ -156,35 +146,44 @@ module.exports = {
         }
     },
 
-    // viewUser: async (req, res) => {
-    //     try {
-    //         const title = "Users";
-    //         console.log('Query Params:', req.query); 
+    viewUser: async (req, res) => {
+        try {
+            const title = "Users";
+            console.log('Query Params:', req.query); 
 
-    //         const { id } = req.params;
+            const { id } = req.params;
 
-    //         if (!id) {
-    //             return res.status(400).send('ID is required');
-    //         }
+            if (!id) {
+                return res.status(400).send('ID is required');
+            }
 
-    //         console.log("Received ID: ", id);
+            console.log("Received ID: ", id);
 
-    //         const user = await Models.userModel.findOne({
-    //             where: {
-    //                 id: id
-    //             }
-    //         });
+            const user = await Models.userModel.findOne({
+                where: {
+                    id: id
+                }
+            });
 
-    //         if (!user) {
-    //             return res.status(404).send('User not found');
-    //         }
+            if (!user) {
+                return res.status(404).send('User not found');
+            }
 
-    //         res.render("user/viewUserListings", { title, user });
-    //     } catch (error) {
-    //         console.error("Error:", error);
-    //         throw error;
-    //     }
-    // },
+            res.render("user/viewUserListings", { title, user });
+        } catch (error) {
+            console.error("Error:", error);
+            throw error;
+        }
+    },
+
+    viewUser: async (req, res) => {
+        try {
+            const title = "Users";
+            res.render("user/viewUserListings", { title });
+        } catch (error) {
+            throw error;
+        }
+    },
 
     deleteUser: async (req, res) => {
         try {

@@ -6,12 +6,11 @@ router.get("/", controller.logIn)
 router.get("/dashboard", controller.dashboard);
 
 router.get("/user", controller.user);
-router.get("/excelForm",controller.excelForm)
 router.get("/addUser", controller.addUser)
 router.post("/createUser", controller.createUser);
 router.get("/editUser/:id", controller.editUser);
 router.post("/updateUser/:id", controller.updateUser);
-// router.get('/viewUser/:id', controller.viewUser); 
+router.get('/viewUser/:id', controller.viewUser); 
 router.delete("/deleteUser/:id", controller.deleteUser)
 
 router.get("/music", controller.music);
