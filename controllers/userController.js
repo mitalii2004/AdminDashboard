@@ -1,11 +1,36 @@
 const Models = require("../models/index");
 const helper = require('../helpers/fileUpload');
+const bcrypt = require("bcrypt")
 
 module.exports = {
 
     logIn: async (req, res) => {
         try {
             res.render("loginPage");
+        } catch (error) {
+            throw error
+        }
+    },
+
+    logInDone: async (req, res) => {
+        try {
+            console.log("req.body", req.body);
+
+            let user = await Models.userModel.findOne({
+                where: {
+                    email: req.body.email,
+                    password: req.body.password,
+                    role: 0
+                }, raw: true
+            })
+            console.log("user======", user);
+            const hashedPassword = await bcrypt.compare(password)
+            if (!user) {
+                return res.send("User not found")
+            } else {
+                req.session.user = user
+                res.redirect("/dashboard")
+            }
         } catch (error) {
             throw error
         }
@@ -65,7 +90,7 @@ module.exports = {
 
     createUser: async (req, res) => {
         try {
-            const { name, nickName, email, status } = req.body;
+            const { name, nickName, email, password, status, role } = req.body;
             const userFile = req.files?.image;
             var userFilePath
             if (req.files && req.files.image) {
@@ -76,7 +101,9 @@ module.exports = {
                 name,
                 nickName,
                 email,
+                password,
                 status,
+                role,
                 image: userFilePath,
             };
 
@@ -149,7 +176,7 @@ module.exports = {
     viewUser: async (req, res) => {
         try {
             const title = "Users";
-            console.log('Query Params:', req.query); 
+            console.log('Query Params:', req.query);
 
             const { id } = req.params;
 
@@ -937,6 +964,19 @@ module.exports = {
             throw error
         }
     },
+
+    test: async (req, res) => {
+        try {
+            let objToSave = {
+                email: "mitali@gmail.com",
+                password: hashedPassword,
+                role: 0
+            }
+            await Models.userModel.create(objToSave)
+        } catch (error) {
+            throw error
+        }
+    }
 
 }
 

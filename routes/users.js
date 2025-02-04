@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const controller = require("../controllers/userController");
+const {session} = require("../helpers/commonHelpers")
 
 router.get("/", controller.logIn)
-router.get("/dashboard", controller.dashboard);
+router.get("/logInDone",controller.logInDone)
+router.get("/dashboard",session, controller.dashboard);
+
 
 router.get("/user", controller.user);
 router.get("/addUser", controller.addUser)
